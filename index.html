@@ -51,7 +51,7 @@
      gradient body di atas; ini murni lapisan hiasan di atasnya,
      pointer-events:none supaya tidak mengganggu tombol di bawahnya.
      ============================================================ */
-  #seasonLayer { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
+  #seasonLayer { position: fixed; inset: 0; pointer-events: none; z-index: 5; overflow: hidden; }
   .season-particle { position: absolute; top: -40px; will-change: transform, opacity; user-select: none; }
   @keyframes seasonFall {
     0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
@@ -89,8 +89,7 @@
   .brand { display: flex; flex-direction: column; gap: 2px; width: 100%; text-align: center; background: var(--panel); padding: 14px; border-radius: 16px; border: 1px solid var(--line); backdrop-filter: blur(10px); }
   .brand h1 { font-family: "Noto Sans JP", sans-serif; font-weight: 900; font-size: 20px; margin: 0; text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); color: var(--cyan); }
   .brand span { color: var(--sub); font-size: 11.5px; letter-spacing: 0.3px; }
-  .brand .stats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
-  .brand .stats .stat-chip { font-size: 10px; font-weight: 700; color: var(--mint); background: rgba(0,230,192,.1); border: 1px solid rgba(0,230,192,.25); border-radius: 20px; padding: 3px 9px; white-space: nowrap; }
+  .brand .stats { font-size: 10.5px; color: var(--mint); margin-top: 2px; }
   
   .whoami { font-size: 12px; color: var(--sub); background: var(--panel2); border: 1px solid var(--line); padding: 8px 12px; border-radius: 12px; display: none; width: 100%; text-align: center; margin-bottom: 12px; backdrop-filter: blur(10px); }
   .whoami b { color: var(--cyan); }
@@ -100,10 +99,8 @@
   .tab-btn.active { background: rgba(0, 229, 255, 0.15); color: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 10px rgba(0, 229, 255, 0.2) inset; }
 
   .panel { display: none; animation: fadeIn 0.3s ease; }
-  /* Saat soal sedang aktif dijawab (bukan di layar setup/dashboard), header brand
-     & bar nama-NIS disembunyikan sementara supaya kartu soal dapat ruang maksimal
-     di layar HP dan pemain fokus ke pertanyaan, bukan scroll ke bawah. Otomatis
-     muncul kembali begitu balik ke menu/dashboard/hasil (lihat toggleQuizChrome()). */
+  /* Saat soal sedang aktif dijawab, header brand & bar nama-NIS disembunyikan
+     sementara supaya kartu soal dapat ruang maksimal di layar HP. */
   body.quiz-active header, body.quiz-active .whoami { display: none !important; } 
   .panel.active { display: block; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -387,7 +384,7 @@
     font-size: 17px; }
   .start-screen p { color: var(--sub); font-size: 13.5px; margin: 0 0 20px; line-height: 1.5; }
 
-  .setup-grid { display: grid; grid-template-columns: 1fr; gap: 11px; margin-bottom: 22px; }
+  .setup-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 22px; }
   .setup-box { background: linear-gradient(160deg, rgba(255,255,255,.035), rgba(0,0,0,0.3)); border: 1px solid rgba(255,255,255,0.08);
     border-radius: 16px; padding: 14px; text-align: left; box-shadow: inset 0 1px 0 rgba(255,255,255,.04); }
   .setup-box .lbl { font-size: 11.5px; color: var(--cyan); font-weight: 800; margin-bottom: 11px; letter-spacing: 1.2px; text-transform: uppercase;
@@ -409,10 +406,10 @@
   /* tile-row: dipakai utk MODE & JENIS KUIS — kartu ikon+label bertumpuk,
      supaya teks panjang (mis. "Mode Ujian / Level Berjenjang") tidak
      terpotong atau berdesakan seperti tombol pil biasa. */
-  .opt-row.tile-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; }
-  .opt-row.tile-row button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
-    min-height: 58px; padding: 8px 6px; border-radius: 14px; font-size: 12px; line-height: 1.2; text-align: center; }
-  .opt-row.tile-row button .opt-icon { font-size: 17px; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,.4)); }
+  .opt-row.tile-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .opt-row.tile-row button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    min-height: 68px; padding: 10px 6px; border-radius: 14px; font-size: 12px; line-height: 1.25; text-align: center; }
+  .opt-row.tile-row button .opt-icon { font-size: 20px; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,.4)); }
   .opt-row.tile-row button .opt-label { display: flex; flex-direction: column; gap: 1px; }
   .opt-row.tile-row button .opt-label small { font-size: 9.5px; font-weight: 600; opacity: .75; text-transform: none; letter-spacing: 0; }
   .opt-row.tile-row button.active .opt-label small { opacity: .9; }
@@ -626,11 +623,8 @@
   .mission-row .m-icon { flex-shrink: 0; font-size: 15px; }
   .mission-row .m-body { flex: 1; min-width: 0; }
   .mission-row .m-label { color: var(--ink); }
-  .mission-row .m-track { height: 6px; border-radius: 3px; background: rgba(255,255,255,.14); margin-top: 4px; overflow: hidden; }
-  .mission-row .m-fill { height: 100%; background: var(--mint); border-radius: 3px; min-width: 2px; transition: width .3s ease; }
-  .mission-row .m-count { flex-shrink: 0; font-size: 10px; color: var(--sub); font-weight: 700; margin-top: 4px; margin-left: 8px; white-space: nowrap; }
-  .mission-row .m-track-row { display: flex; align-items: center; }
-  .mission-row .m-track-row .m-track { flex: 1; }
+  .mission-row .m-track { height: 5px; border-radius: 3px; background: rgba(255,255,255,.08); margin-top: 3px; overflow: hidden; }
+  .mission-row .m-fill { height: 100%; background: var(--mint); border-radius: 3px; }
   .mission-row.done .m-label { color: var(--mint); text-decoration: line-through; opacity: .75; }
   .mission-row .m-reward { flex-shrink: 0; font-size: 10.5px; font-weight: 800; color: var(--gold); }
 
@@ -1097,7 +1091,7 @@
   .opt::before {
     counter-increment: optletter; content: counter(optletter, upper-alpha);
     position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-    width: 20px; height: 20px; border-radius: 6px; background: rgba(255,255,255,.06);
+    width: 20px; height: 20px; border-radius: 6px; background: rgba(255,255,255,.08);
     border: 1px solid var(--line); color: var(--sub); font-size: 11px; font-weight: 800;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
@@ -1250,6 +1244,308 @@
   .modern-select-wrap label { display: block; font-size: 11.5px; color: var(--sub); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
   .modern-select { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: rgba(0,0,0,0.5); color: var(--cyan); font-family: "Noto Sans JP", sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; min-height: 44px; }
   .modern-select option { background: var(--bg); color: var(--ink); }
+
+  /* ===== JAPANESE WORLD MAP — CSS + SVG only, ringan untuk GitHub Pages ===== */
+  .dash-menu-btn.dash-world{border-color:rgba(0,229,255,.55);background:linear-gradient(100deg,rgba(0,229,255,.08),rgba(123,42,255,.05))}
+  .dash-menu-btn.dash-world .dmb-icon{background:linear-gradient(135deg,rgba(0,229,255,.20),rgba(123,42,255,.18));box-shadow:0 0 18px rgba(0,229,255,.28) inset,0 0 12px rgba(0,229,255,.12)}
+  .dash-menu-btn.dash-world:hover{border-color:rgba(0,229,255,.9);box-shadow:0 0 18px rgba(0,229,255,.10);transform:translateY(-1px)}
+  #panel-world{padding-bottom:18px}
+  .world-page-header{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;margin-bottom:14px}
+  .world-back-btn{padding:9px 13px;border-radius:10px;border:1px solid rgba(0,229,255,.28);background:rgba(4,14,28,.78);color:var(--ink);font-weight:800;font-size:12.5px;cursor:pointer;transition:.18s ease}
+  .world-back-btn:hover{border-color:var(--cyan);box-shadow:0 0 14px rgba(0,229,255,.15)}
+  .world-title-wrap{min-width:0}.world-kicker{color:var(--cyan);font-family:monospace;font-size:9px;letter-spacing:2px;margin-bottom:2px;opacity:.8}.world-page-title{font-family:"Noto Sans JP",sans-serif;font-weight:900;font-size:19px;color:#fff;letter-spacing:.5px}.world-title-wrap small{display:block;color:var(--sub);font-size:10px;margin-top:2px}
+  .world-level-badge{min-width:50px;text-align:center;padding:8px 9px;border-radius:10px;border:1px solid rgba(0,229,255,.45);background:rgba(0,229,255,.08);color:var(--cyan);font:900 12px monospace;box-shadow:0 0 14px rgba(0,229,255,.12) inset}
+  .world-map-shell{position:relative;width:100%;height:min(68vh,680px);min-height:500px;overflow:hidden;border:1px solid rgba(0,229,255,.24);border-radius:24px;background:radial-gradient(circle at 74% 20%,rgba(0,229,255,.13),transparent 23%),radial-gradient(circle at 27% 72%,rgba(123,42,255,.14),transparent 28%),linear-gradient(160deg,#061522 0%,#07101d 48%,#090b1d 100%);box-shadow:inset 0 0 45px rgba(0,229,255,.06),0 0 30px rgba(0,0,0,.28)}
+  .world-map-grid{position:absolute;inset:0;opacity:.20;pointer-events:none;background-image:linear-gradient(rgba(0,229,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.10) 1px,transparent 1px);background-size:42px 42px;transform:perspective(500px) rotateX(52deg) scale(1.35) translateY(20%);transform-origin:center bottom}
+  .world-stars{position:absolute;inset:0;pointer-events:none;opacity:.55;background-image:radial-gradient(circle,rgba(255,255,255,.75) 1px,transparent 1.5px),radial-gradient(circle,rgba(0,229,255,.55) 1px,transparent 1.5px);background-size:83px 97px,127px 119px;background-position:10px 15px,40px 50px;animation:worldStarsDrift 18s linear infinite}
+  @keyframes worldStarsDrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-20px,15px,0)}}
+  .world-scanline{position:absolute;inset:0;pointer-events:none;z-index:20;opacity:.07;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(255,255,255,.25) 4px)}
+  .world-map-info{position:absolute;left:16px;top:14px;z-index:25;display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid rgba(0,229,255,.18);border-radius:9px;background:rgba(3,12,24,.72);backdrop-filter:blur(8px);color:var(--sub);font:700 9px monospace;letter-spacing:.5px}.world-live-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 9px var(--cyan);animation:worldPulse 1.5s ease-in-out infinite}.world-info-sep{color:rgba(255,255,255,.25)}
+  @keyframes worldPulse{0%,100%{opacity:.45;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+  .world-routes{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:visible}.world-route{fill:none;stroke:url(#worldRouteGradient);stroke-width:4;stroke-linecap:round;stroke-dasharray:10 12;filter:drop-shadow(0 0 5px rgba(0,229,255,.55));opacity:.72;animation:worldRouteFlow 2.5s linear infinite}@keyframes worldRouteFlow{to{stroke-dashoffset:-44}}
+  .world-location{position:absolute;z-index:10;width:116px;min-height:112px;padding:11px 7px 9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:20px;border:1px solid rgba(0,229,255,.34);color:#fff;background:linear-gradient(145deg,rgba(9,28,48,.94),rgba(8,12,28,.94));box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 25px rgba(0,0,0,.24);cursor:pointer;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;font-family:"Noto Sans JP",sans-serif}.world-location:hover{transform:translateY(-5px) scale(1.03);border-color:rgba(0,229,255,.9);box-shadow:0 0 25px rgba(0,229,255,.22),inset 0 0 20px rgba(0,229,255,.06)}.world-location:active{transform:translateY(-1px) scale(.98)}.world-location-glow{position:absolute;inset:8px;border-radius:15px;pointer-events:none;background:radial-gradient(circle,rgba(0,229,255,.12),transparent 70%);opacity:.8}.world-location-icon{position:relative;font-size:38px;line-height:1;filter:drop-shadow(0 0 7px rgba(0,229,255,.25))}.world-location-name{position:relative;font-size:12px;font-weight:900;margin-top:4px}.world-location-sub{position:relative;font:800 7px monospace;letter-spacing:1.5px;color:var(--cyan);opacity:.75}.world-location-state{position:relative;margin-top:4px;font:900 8px monospace;color:#9ffcff}.world-location.locked{filter:saturate(.45);opacity:.68;cursor:pointer;border-color:rgba(255,255,255,.14)}.world-location.locked:hover{opacity:.85;border-color:rgba(255,255,255,.32);box-shadow:0 0 18px rgba(255,255,255,.08)}.world-location.unlocked{animation:worldNodeFloat 3.4s ease-in-out infinite}@keyframes worldNodeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  .world-school{left:8%;bottom:12%}.world-station{left:25%;bottom:27%}.world-konbini{left:40%;bottom:42%}.world-restaurant{left:55%;bottom:54%}.world-company{left:68%;bottom:68%}.world-jlpt{right:6%;top:7%}
+  .world-player-marker{position:absolute;left:20%;bottom:23%;z-index:12;width:28px;height:28px;display:flex;align-items:center;justify-content:center;pointer-events:none;animation:worldPlayerBounce 1.4s ease-in-out infinite}.world-player-marker span{font-size:22px;filter:drop-shadow(0 0 8px rgba(0,229,255,.8))}.world-player-marker i{position:absolute;width:9px;height:4px;border-radius:50%;background:rgba(0,229,255,.6);bottom:0;box-shadow:0 0 10px rgba(0,229,255,.7)}@keyframes worldPlayerBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  .world-bottom-hint{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:25;width:max-content;max-width:calc(100% - 24px);padding:7px 11px;border:1px solid rgba(255,255,255,.10);border-radius:9px;background:rgba(3,9,18,.70);backdrop-filter:blur(7px);color:var(--sub);font-size:9.5px;text-align:center}
+  .world-location-modal{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.70);backdrop-filter:blur(8px)}.world-location-card{width:min(430px,100%);border:1px solid rgba(0,229,255,.45);border-radius:22px;padding:22px;background:linear-gradient(155deg,#071a2b,#0b1021 75%);box-shadow:0 0 45px rgba(0,229,255,.18);text-align:center;animation:worldModalIn .2s ease-out}@keyframes worldModalIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}.world-modal-icon{font-size:54px;line-height:1;margin-bottom:8px}.world-modal-title{font-family:"Noto Sans JP",sans-serif;font-size:21px;font-weight:900;color:#fff}.world-modal-sub{color:var(--cyan);font:800 9px monospace;letter-spacing:2px;margin-top:3px}.world-modal-desc{color:var(--sub);font-size:12px;line-height:1.6;margin:12px 0 17px}.world-modal-focus{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:18px}.world-focus-chip{padding:6px 9px;border-radius:8px;border:1px solid rgba(0,229,255,.18);background:rgba(0,229,255,.06);color:#b9faff;font-size:10px;font-weight:800}.world-modal-actions{display:flex;gap:8px}.world-modal-actions button{flex:1;min-height:42px;border-radius:11px;cursor:pointer;font-weight:900}.world-modal-enter{border:1px solid rgba(0,229,255,.55);background:linear-gradient(135deg,rgba(0,229,255,.18),rgba(123,42,255,.18));color:#fff;box-shadow:0 0 18px rgba(0,229,255,.12)}.world-modal-close{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--sub)}.world-lock-note{color:#ffd36a;font-size:11px;font-weight:800;margin:8px 0 14px}
+  @media(max-width:680px){.world-map-shell{min-height:540px;height:68vh;border-radius:18px}.world-map-info{font-size:7.5px;max-width:calc(100% - 32px);white-space:nowrap;overflow:hidden}.world-location{width:91px;min-height:91px;border-radius:16px;padding:8px 4px}.world-location-icon{font-size:30px}.world-location-name{font-size:10px}.world-location-sub{font-size:6px}.world-location-state{font-size:7px}.world-school{left:4%;bottom:12%}.world-station{left:22%;bottom:27%}.world-konbini{left:38%;bottom:42%}.world-restaurant{left:53%;bottom:54%}.world-company{left:66%;bottom:68%}.world-jlpt{right:3%;top:8%}.world-player-marker{left:15%;bottom:22%}.world-routes{opacity:.75}.world-bottom-hint{font-size:8px}}
+
+/* ===== RESTAURANT WORLD — playable contextual mode ===== */
+#panel-restaurant-world{padding-bottom:14px}
+.rw-header{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;margin-bottom:8px}
+.rw-back{padding:9px 12px;border:1px solid rgba(0,229,255,.3);border-radius:10px;background:rgba(0,229,255,.06);color:#bffaff;font-weight:900;font-size:11px;cursor:pointer}
+.rw-title{display:flex;align-items:center;gap:9px;min-width:0}.rw-title>span{font-size:30px;filter:drop-shadow(0 0 9px rgba(0,229,255,.55))}.rw-title b{display:block;color:#fff;font-family:"Noto Sans JP",sans-serif;font-size:15px}.rw-title small{display:block;color:var(--cyan);font:800 8px monospace;letter-spacing:1.7px;margin-top:2px}.rw-stats{display:flex;gap:7px;align-items:center;font-size:10px;color:#dffcff}.rw-stats span{padding:7px 9px;border:1px solid rgba(255,255,255,.1);border-radius:9px;background:rgba(255,255,255,.035)}
+.rw-progress{height:5px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-bottom:10px}.rw-progress i{display:block;height:100%;width:10%;background:linear-gradient(90deg,var(--cyan),#7b2aff);box-shadow:0 0 12px rgba(0,229,255,.6);transition:width .35s ease}
+.rw-scene{position:relative;min-height:420px;height:55vh;max-height:600px;overflow:hidden;border:1px solid rgba(0,229,255,.25);border-radius:20px;background:radial-gradient(circle at 50% 35%,rgba(0,229,255,.10),transparent 35%),linear-gradient(180deg,#0d1828 0%,#08101c 62%,#090c14 100%);box-shadow:inset 0 0 70px rgba(0,0,0,.65),0 0 28px rgba(0,229,255,.07)}
+.rw-scene:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:28px 28px;opacity:.35}.rw-scene:after{content:"";position:absolute;left:0;right:0;bottom:0;height:39%;background:linear-gradient(180deg,transparent,rgba(0,229,255,.035) 20%,rgba(0,0,0,.5));pointer-events:none}
+.rw-lantern{position:absolute;top:13px;font-size:36px;filter:drop-shadow(0 0 13px rgba(255,95,120,.55));animation:rwFloat 2.4s ease-in-out infinite}.rw-lantern.l1{left:8%}.rw-lantern.l2{right:8%;animation-delay:.7s}.rw-neon-sign{position:absolute;left:50%;top:9%;transform:translateX(-50%);text-align:center;color:#fff;font-family:"Noto Sans JP",sans-serif;font-weight:900;font-size:19px;line-height:1.05;text-shadow:0 0 7px #00e5ff,0 0 18px rgba(0,229,255,.75)}.rw-neon-sign span{color:#ff5f9d;font-size:27px;text-shadow:0 0 8px #ff2a7a,0 0 18px rgba(255,42,122,.6)}
+.rw-wall-art{position:absolute;left:5%;top:28%;font-size:40px;opacity:.85;filter:drop-shadow(0 0 8px rgba(255,255,255,.12))}.rw-table{position:absolute;width:120px;height:65px;border-radius:50%;border:2px solid rgba(139,91,53,.75);background:radial-gradient(ellipse at center,#4b2b1e,#20130f);box-shadow:0 12px 0 rgba(0,0,0,.3),0 0 20px rgba(255,145,55,.08)}.rw-table span{position:absolute;left:50%;top:8px;transform:translateX(-50%);font-size:25px}.rw-table i{position:absolute;font-style:normal;font-size:25px;bottom:-24px}.rw-table.t1{left:12%;bottom:25%}.rw-table.t1 i{left:10px}.rw-table.t2{right:12%;bottom:25%}.rw-table.t2 i{right:10px}.rw-counter{position:absolute;left:50%;bottom:14%;transform:translateX(-50%);width:42%;height:70px;border-radius:12px 12px 4px 4px;border:1px solid rgba(0,229,255,.18);background:linear-gradient(180deg,#1b2530,#0d141d);display:flex;align-items:center;justify-content:center;gap:18px;box-shadow:0 10px 25px rgba(0,0,0,.35)}.rw-counter b{position:absolute;right:10px;bottom:8px;color:#7edeea;font:800 8px monospace}.rw-door{position:absolute;right:4%;top:38%;font-size:48px;opacity:.7}
+.rw-npc,.rw-player{position:absolute;z-index:7;text-align:center;transition:transform .45s ease,left .45s ease,bottom .45s ease}.rw-npc{left:46%;bottom:29%}.rw-player{left:28%;bottom:17%}.rw-npc-avatar,.rw-avatar{font-size:58px;filter:drop-shadow(0 0 9px rgba(0,229,255,.3));animation:rwBob 1.8s ease-in-out infinite}.rw-avatar{font-size:48px}.rw-npc-name,.rw-player-name{margin-top:-2px;padding:3px 7px;border-radius:7px;background:rgba(2,8,16,.75);border:1px solid rgba(0,229,255,.2);color:#d9fbff;font:800 8px monospace}.rw-player-name{color:#ffd9f0}.rw-floor-glow{position:absolute;left:50%;bottom:6%;width:65%;height:30px;transform:translateX(-50%);border-radius:50%;background:rgba(0,229,255,.12);filter:blur(12px)}
+.rw-dialogue{margin-top:9px;padding:12px 13px;border:1px solid rgba(0,229,255,.25);border-radius:16px;background:linear-gradient(145deg,rgba(8,25,39,.96),rgba(8,12,24,.96));box-shadow:0 0 22px rgba(0,229,255,.07)}.rw-speaker{display:flex;align-items:center;gap:7px}.rw-speaker span{font-size:20px}.rw-speaker b{font-family:"Noto Sans JP",sans-serif;color:#fff;font-size:13px}.rw-speaker small{color:var(--cyan);font-size:9px}.rw-text{font-family:"Noto Sans JP",sans-serif;font-size:17px;font-weight:800;color:#fff;line-height:1.55;margin:8px 0}.rw-question{display:grid;grid-template-columns:1fr 1fr;gap:7px}.rw-option{min-height:43px;padding:8px 10px;border-radius:11px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#f3fbff;font-family:"Noto Sans JP",sans-serif;font-weight:800;font-size:12px;cursor:pointer;transition:transform .12s,border-color .12s,background .12s}.rw-option:hover{border-color:rgba(0,229,255,.5);background:rgba(0,229,255,.07)}.rw-option:active{transform:scale(.98)}.rw-option.correct{border-color:rgba(0,240,181,.8);background:rgba(0,240,181,.12);color:#baffeb}.rw-option.wrong{border-color:rgba(255,70,110,.75);background:rgba(255,70,110,.10);color:#ffd0da}.rw-feedback{min-height:18px;margin-top:7px;color:var(--sub);font-size:10.5px;font-weight:800}.rw-feedback.good{color:var(--mint)}.rw-feedback.bad{color:#ff9bb2}.rw-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:8px;color:var(--sub);font-size:9px}.rw-energy{display:flex;gap:8px;align-items:center}.rw-energy i{font-style:normal;color:#ff557f;font-size:14px;text-shadow:0 0 8px rgba(255,42,122,.55);margin-right:1px}.rw-combo{font:900 10px monospace;color:#8defff}
+.rw-reward-modal{position:fixed;inset:0;z-index:10050;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.75);backdrop-filter:blur(9px)}.rw-reward-card{width:min(390px,100%);padding:25px;border-radius:22px;border:1px solid rgba(0,229,255,.55);background:radial-gradient(circle at 50% 15%,rgba(0,229,255,.14),transparent 35%),linear-gradient(145deg,#081b2d,#0b1020);text-align:center;box-shadow:0 0 50px rgba(0,229,255,.18);animation:rwRewardIn .35s ease-out}.rw-reward-card .gift{font-size:64px;animation:rwGift 1s ease-in-out infinite}.rw-reward-card h3{margin:7px 0 2px;color:#fff;font-family:"Noto Sans JP",sans-serif}.rw-reward-card p{margin:5px 0 15px;color:var(--sub);font-size:11px}.rw-reward-btn{width:100%;min-height:43px;border:1px solid rgba(0,229,255,.5);border-radius:11px;background:linear-gradient(135deg,rgba(0,229,255,.18),rgba(123,42,255,.18));color:#fff;font-weight:900;cursor:pointer}
+@keyframes rwBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}@keyframes rwFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@keyframes rwGift{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.08) rotate(2deg)}}@keyframes rwRewardIn{from{opacity:0;transform:scale(.9) translateY(12px)}to{opacity:1;transform:none}}
+
+.rw-actionbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0;padding:7px 8px;border:1px solid rgba(0,229,255,.16);border-radius:12px;background:rgba(0,229,255,.035)}.rw-actionbar>span{font:900 8px monospace;color:var(--cyan);letter-spacing:1.2px;margin-right:2px}.rw-actionbar button{border:1px solid rgba(255,255,255,.11);border-radius:8px;background:rgba(255,255,255,.035);color:#dffcff;padding:6px 8px;font-size:9px;font-weight:900;cursor:pointer}.rw-actionbar button:hover,.rw-actionbar button.active{border-color:rgba(0,229,255,.65);background:rgba(0,229,255,.10);box-shadow:0 0 12px rgba(0,229,255,.10)}.rw-actionbar button.active{color:#fff}.rw-hotspot{cursor:pointer}.rw-hotspot small{display:block;color:#9deff7;font:800 7px monospace;margin-top:2px}.rw-door{border:0;background:transparent;color:inherit;padding:0}.rw-table,.rw-counter{color:inherit;padding:0;cursor:pointer}.rw-table:hover,.rw-counter:hover,.rw-npc:hover,.rw-door:hover{filter:brightness(1.22) drop-shadow(0 0 9px rgba(0,229,255,.55))}.rw-hotspot.rw-target{animation:rwTargetPulse .85s ease-in-out infinite alternate;filter:drop-shadow(0 0 12px rgba(0,229,255,.85))}.rw-option.rw-disabled{opacity:.38;cursor:not-allowed;filter:grayscale(.5)}@keyframes rwTargetPulse{from{transform:translateY(0) scale(1)}to{transform:translateY(-5px) scale(1.07)}}
+@media(max-width:680px){.rw-scene{min-height:390px;height:52vh}.rw-question{grid-template-columns:1fr}.rw-table{width:88px;height:53px}.rw-counter{width:54%;gap:9px}.rw-neon-sign{font-size:15px}.rw-neon-sign span{font-size:22px}.rw-npc-avatar{font-size:50px}.rw-avatar{font-size:42px}.rw-npc{left:43%}.rw-player{left:22%}.rw-text{font-size:15px}.rw-title b{font-size:13px}}
+
+
+/* ===== RESTAURANT RPG V2 JUICE ===== */
+.rw-mini-panel{margin:8px 0;padding:8px 11px;border:1px solid rgba(255,215,0,.22);border-radius:11px;background:linear-gradient(90deg,rgba(255,215,0,.05),rgba(0,229,255,.035));display:flex;align-items:center;gap:8px;flex-wrap:wrap}.rw-mini-panel span{font:900 8px monospace;color:var(--gold);letter-spacing:1px}.rw-mini-panel b{font-size:11px;color:#fff}.rw-mini-panel small{width:100%;font-size:9px;color:var(--sub)}.rw-panel-pop{animation:rwPanelPop .6s ease}.rw-moving{animation:rwWalk .45s ease}.rw-npc-enter{animation:rwNpcEnter .6s ease}.rw-hotspot.rw-target{outline:1px solid rgba(0,229,255,.5)}.rw-effect{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);z-index:30;font-size:28px;animation:rwEffect .9s ease forwards;pointer-events:none}.rw-particle{position:absolute;left:50%;bottom:35%;z-index:35;font-style:normal;font-size:18px;pointer-events:none;animation:rwParticle .9s ease-out forwards}.rw-particle:nth-child(odd){font-size:14px}.rw-counting{animation:rwCount .65s ease}.rw-mini-panel:has(#rwRegisterTotal){border-color:rgba(255,42,122,.25)}
+@keyframes rwWalk{0%{transform:translateX(-8px) scale(.96)}50%{transform:translateX(8px) scale(1.03)}100%{transform:translateX(0) scale(1)}}@keyframes rwNpcEnter{0%{opacity:.2;transform:translateX(80px)}100%{opacity:1;transform:translateX(0)}}@keyframes rwEffect{0%{opacity:0;transform:translate(-50%,-40%) scale(.6)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}100%{opacity:0;transform:translate(-50%,-75%) scale(.8)}}@keyframes rwParticle{0%{opacity:0;transform:translate(0,0) scale(.5)}20%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(180deg) scale(1.2)}}@keyframes rwCount{0%,100%{transform:scale(1)}40%{transform:scale(1.12);color:var(--gold)}}@keyframes rwPanelPop{0%,100%{transform:scale(1)}45%{transform:scale(1.025);box-shadow:0 0 18px rgba(0,229,255,.15)}}
+
+/* ============================================================
+   HARVEST VILLAGE SKIN — pengganti visual cyberpunk
+   Struktur & fungsi game tetap sama; yang diubah adalah visual.
+   ============================================================ */
+:root{
+  --bg:#dcefd0; --panel:rgba(255,249,232,.94); --panel2:rgba(247,235,207,.98);
+  --ink:#4a3522; --sub:#7d674e; --line:rgba(111,75,40,.25);
+  --sakura:#e58ca6; --sakura-dk:#c96882; --cyan:#4f8f5d; --mint:#79a85e;
+  --gold:#d79a28; --red:#c95f50; --n5:#62a96b; --n4:#d79a28; --n3:#d9824d; --n2:#c96882; --n1:#9d4b45;
+}
+body{
+  background:
+    radial-gradient(circle at 12% 8%,rgba(255,255,255,.8),transparent 24%),
+    linear-gradient(180deg,#9ed7f0 0%,#d9efca 38%,#b8d998 100%);
+  color:var(--ink);
+  font-family:"Zen Maru Gothic","Inter",sans-serif;
+}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.22;background-image:radial-gradient(#fff 1px,transparent 1.5px);background-size:31px 31px;}
+.wrap{max-width:1480px;padding:18px 18px 70px;position:relative;z-index:2}
+header{margin-bottom:12px}.brand{background:rgba(255,248,226,.9);border:3px solid #9a6a38;border-radius:18px;box-shadow:0 5px 0 #704924,0 12px 25px rgba(76,53,27,.16);padding:12px 18px}.brand h1{color:#5a371d;text-shadow:1px 2px 0 #fff;font-family:"Zen Maru Gothic",sans-serif}.brand span{color:#82664a}.brand .stats{color:#4f8f5d}
+.whoami{background:#fff6df;border:2px solid #a87845;color:#6b5238;box-shadow:0 4px 0 rgba(112,73,35,.18)}.whoami b{color:#4f8f5d}
+.panel{animation:harvestIn .28s ease}.card,.setup-box,.qcard,.flash,.result,.modern-select,.page-header .back-btn{background:rgba(255,248,230,.95)!important;border-color:#b98b58!important;color:var(--ink)!important;box-shadow:0 4px 0 rgba(112,73,35,.12),0 10px 24px rgba(76,53,27,.08)}
+@keyframes harvestIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* hide old neon atmosphere */
+#seasonLayer{opacity:.55}.season-particle{filter:saturate(.65)}
+/* landing */
+#landing{background:linear-gradient(180deg,#8fd0ed 0%,#cce9b7 50%,#93bd69 100%);z-index:9999}
+#landing:before{content:"☀️   ☁️        ☁️        🕊️";position:absolute;top:5%;left:0;right:0;text-align:center;font-size:36px;opacity:.85;letter-spacing:35px}
+.arcade-stage{max-width:820px;padding:22px;gap:12px}.neon-kana,.arcade-scene,.cab-reflection{display:none}
+.arcade-title{background:#fff4d7;border:5px solid #8b5a2b;border-radius:26px;padding:18px 30px;box-shadow:0 8px 0 #6b421e,0 18px 35px rgba(72,53,27,.22);position:relative}
+.arcade-title:before{content:"🌸";position:absolute;left:-18px;top:-18px;font-size:42px}.arcade-title:after{content:"🌻";position:absolute;right:-18px;bottom:-18px;font-size:42px}
+.landing-logo{width:95px;height:95px;background:#b9d997;border:5px solid #fff;border-radius:50%;box-shadow:0 4px 0 #8c673f;margin-bottom:7px}
+.arcade-title .jp{color:#57381f;text-shadow:1px 2px 0 #fff;font-size:28px}.arcade-title .welcome{color:#6c9d54;text-shadow:none;font-size:18px}
+.arcade-copy{background:rgba(79,60,37,.82);border:3px solid #b98b58;border-radius:16px;padding:12px 20px;box-shadow:0 5px 0 rgba(78,48,22,.35);color:#fff}.arcade-copy .id-line{color:#fff}.arcade-copy .jp-line{color:#ffe7a8}
+.insert-coin{border:3px solid #7a4b23!important;background:linear-gradient(#ffe8a1,#e5aa45)!important;color:#4b2c14!important;border-radius:16px!important;box-shadow:0 6px 0 #75481f,0 12px 22px rgba(77,49,20,.25)!important;font-family:"Zen Maru Gothic"!important}
+/* login */
+#panel-login .card{max-width:620px;margin:0 auto;border:3px solid #a87543!important;border-radius:24px!important;background:linear-gradient(180deg,#fff8e8,#f4e5c4)!important}.login-wrap h2{color:#5c3b20}.login-wrap p{color:#806a52}.field label{color:#6e5238}.field input{background:#fffdf4;border:2px solid #c9a678;color:#4b3521}.login-btn{background:linear-gradient(#78aa63,#4e8b55)!important;border:3px solid #3e6e42!important;box-shadow:0 5px 0 #315a35!important;color:#fff!important}
+/* HOME village */
+#panel-dashboard.active{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(360px,.75fr);gap:14px;align-items:stretch}
+#panel-dashboard>.player-bar{grid-column:1/-1}
+#panel-dashboard>.missions-card{grid-column:1/-1}
+#panel-dashboard>#omikujiSlot{grid-column:1/-1}
+#panel-dashboard:before{content:"";grid-column:1/-1;display:block;height:360px;border:4px solid #8f6336;border-radius:24px;background:
+  radial-gradient(circle at 75% 20%,#ffe59a 0 32px,transparent 34px),
+  linear-gradient(165deg,transparent 0 48%,rgba(67,130,63,.95) 49% 57%,transparent 58%),
+  linear-gradient(145deg,rgba(255,255,255,.35),transparent 42%),
+  linear-gradient(180deg,#9dd8ef 0 50%,#79ad57 50% 67%,#b9d886 67% 100%);
+ box-shadow:inset 0 -45px 0 rgba(112,79,36,.08),0 8px 0 #6f4a27,0 18px 30px rgba(71,52,28,.18);position:relative;content:"🌸        🏡       🌳        🌳       🐔";font-size:65px;text-align:center;line-height:310px;color:#fff;white-space:pre;overflow:hidden}
+.dashboard-menu{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:-7px;position:relative;z-index:3}
+.dash-menu-btn{min-height:105px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px 10px;border:3px solid #a77745!important;border-radius:18px!important;background:linear-gradient(#fff7df,#efd5a4)!important;color:#50351e!important;box-shadow:0 5px 0 #7a5129,0 10px 18px rgba(73,50,28,.14)!important}
+.dash-menu-btn:hover{transform:translateY(-3px)!important;border-color:#7e9f61!important}.dash-menu-btn .dmb-icon{width:48px!important;height:48px!important;background:#fff2c9!important;box-shadow:none!important;border:2px solid #c99b61}.dash-menu-btn .dmb-text b{color:#51351f;font-size:15px}.dash-menu-btn .dmb-text small{color:#80684e}
+.dash-menu-btn.dash-world{background:linear-gradient(#ffeaa8,#e7b65b)!important}.dash-menu-btn.dash-game{background:linear-gradient(#e9f5dc,#b9d88f)!important}.dash-menu-btn.dash-study{background:linear-gradient(#fff0f4,#efb4c4)!important}.dash-menu-btn.dash-history{background:linear-gradient(#eaf1ff,#b8cae7)!important}
+/* player/missions */
+.player-bar,.missions-card{background:rgba(255,247,224,.96)!important;border:3px solid #a87845!important;border-radius:18px!important;box-shadow:0 5px 0 rgba(111,72,34,.2)!important;color:var(--ink)!important}
+/* world map becomes countryside */
+#panel-world{background:transparent}.world-page-header{background:#fff2d5;border:3px solid #a87643;border-radius:16px;padding:8px;box-shadow:0 4px 0 #714a26}.world-back-btn{background:#fff0cc;color:#5d4024;border-color:#b08350}.world-title-wrap .world-kicker,.world-level-badge{color:#5d8b4f}.world-page-title{color:#57391f}.world-level-badge{background:#e8f3d7;border-color:#8eaa70}.world-map-shell{border:4px solid #8c6135;border-radius:24px;background:linear-gradient(180deg,#91d1eb 0 45%,#80b85d 45% 66%,#c9dd9a 66% 100%);box-shadow:inset 0 -60px 0 rgba(104,70,31,.07),0 8px 0 #6d4724}.world-stars,.world-map-grid,.world-scanline{display:none}.world-map-info{background:#fff2d8;border-color:#b58a55;color:#674a2d}.world-location{border:3px solid #966737;background:linear-gradient(#fff2c9,#e5b86e);color:#51351d;box-shadow:0 5px 0 #754b25}.world-location-sub{color:#5f8750}.world-location-state{color:#6e8f55}.world-location-icon{filter:none}.world-route{stroke:#7d9e5e;filter:none;opacity:.7}.world-player-marker span{font-size:28px;filter:none}.world-bottom-hint{background:#fff0d2;color:#654a2f;border-color:#b98b58}
+/* game controls warm */
+.play-btn,.continue-btn{background:linear-gradient(#79ad64,#4e8e57)!important;color:#fff!important;box-shadow:0 5px 0 #315f39!important}.opt-row button,.navbtn,.modern-select{background:#fff7e5!important;color:#63472c!important;border:2px solid #c59a68!important}.opt-row button.active{background:linear-gradient(#e7b65b,#c9872d)!important;border-color:#a86620!important;box-shadow:0 4px 0 #7a4a1f!important}.start-screen h2,.col-title{color:#5d8b4f!important}
+/* restaurant */
+#panel-restaurant-world{background:#d9edc4;border:4px solid #8d6032;border-radius:22px;padding:10px;box-shadow:0 7px 0 #69451f}.rw-header{background:#fff0d0!important;border-color:#a97845!important;color:#57391f!important}.rw-scene{background:linear-gradient(#d99a63 0 25%,#9b6339 25% 70%,#d6b47c 70% 100%)!important;border-color:#71451f!important}.rw-neon-sign{background:#fff0bd!important;color:#8a4f2b!important;border-color:#8c6038!important}.rw-dialogue{background:#fff4db!important;border-color:#a87948!important;color:#5a3c22!important}.rw-option{background:#fff9ea!important;border-color:#c59a68!important;color:#5b4028!important}.rw-actionbar{background:#f5dfb6!important;border-color:#a97845!important}.rw-actionbar button{background:#fff5dc!important;color:#5d4128!important;border-color:#c39968!important}
+@media(max-width:900px){#panel-dashboard{grid-template-columns:1fr}.dashboard-menu{grid-template-columns:repeat(2,1fr)}#panel-dashboard:before{height:280px;line-height:245px;font-size:46px}}
+@media(max-width:560px){.wrap{padding:10px 9px 55px}.dashboard-menu{grid-template-columns:repeat(2,1fr);gap:9px}.dash-menu-btn{min-height:92px}.dash-menu-btn .dmb-text small{display:none}#panel-dashboard:before{height:220px;line-height:195px;font-size:32px}.arcade-title .jp{font-size:20px}.arcade-title{padding:14px 16px}}
+
+
+/* ============================================================
+   KOTODAMA HARVEST VILLAGE — DEEP TEXTURE UI PACK v3
+   Target: warm hand-painted farming RPG / Harvest-Moon-like mood
+   ============================================================ */
+:root{
+  --bg:#8fcf83;
+  --panel:#fff4d7;
+  --panel2:#f3dfb5;
+  --ink:#4b301b;
+  --sub:#775a3b;
+  --line:#9c6a37;
+  --wood:#8a5429;
+  --wood-dark:#5e371d;
+  --wood-light:#d99b55;
+  --cream:#fff7df;
+  --leaf:#5f9b4f;
+  --leaf-dark:#3f713d;
+  --sky:#a8dff0;
+  --water:#58b9d6;
+  --gold:#e6a83e;
+  --sakura:#e58ca7;
+}
+html{background:#6e9f5b}
+body{
+  color:var(--ink)!important;
+  font-family:"Zen Maru Gothic","Noto Sans JP",sans-serif!important;
+  background:
+    radial-gradient(circle at 12% 8%,rgba(255,255,255,.75) 0 2px,transparent 3px),
+    radial-gradient(circle at 72% 23%,rgba(255,255,255,.45) 0 1px,transparent 2px),
+    repeating-linear-gradient(0deg,rgba(92,65,33,.025) 0 1px,transparent 1px 5px),
+    linear-gradient(180deg,#b8e6f0 0,#dff1d2 33%,#9ecb72 67%,#77a955 100%)!important;
+  background-attachment:fixed!important;
+}
+/* paper grain helper */
+.card,.panel,.player-bar,.missions-card,.page-header,.world-page-header,.rw-header,.rw-dialogue,.modern-select-wrap,.shop-pane,.shop-card,.omikuji-card,.history-item,.mission-row,.start-screen,.qcard,.jp-card,.trivia-fact-card,.boss-card,.boss-intro-card{
+  background-color:#fff2d3!important;
+  background-image:
+    radial-gradient(circle at 20% 15%,rgba(126,77,32,.055) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 75% 65%,rgba(126,77,32,.045) 0 1px,transparent 1.4px),
+    repeating-linear-gradient(0deg,rgba(130,88,43,.025) 0 1px,transparent 1px 4px),
+    linear-gradient(180deg,rgba(255,255,255,.55),rgba(241,215,169,.22))!important;
+  border:3px solid #a66f3b!important;
+  box-shadow:0 4px 0 #70451f,0 8px 18px rgba(73,48,23,.14),inset 0 1px rgba(255,255,255,.85)!important;
+}
+.card:before,.card:after,.page-header:before,.world-page-header:before,.rw-header:before{pointer-events:none}
+/* wood texture */
+header .brand,.dash-menu-btn,.world-location,.rw-actionbar,.rw-hotspot,.rw-reward-card,.shop-item,.shop-tabs,.tab-btn,.navbtn,.back-btn,.world-back-btn,.rw-back,.play-btn,.continue-btn,.login-btn,.insert-coin{
+  background-color:#c88746!important;
+  background-image:
+    repeating-linear-gradient(8deg,rgba(78,43,19,.10) 0 2px,transparent 2px 13px),
+    repeating-linear-gradient(178deg,rgba(255,226,168,.13) 0 1px,transparent 1px 17px),
+    linear-gradient(180deg,#e0a45f,#b96f35)!important;
+  color:#fff8e8!important;
+  border:3px solid #6e411f!important;
+  box-shadow:0 4px 0 #4f2e19,0 7px 12px rgba(71,43,22,.17),inset 0 1px rgba(255,239,201,.55)!important;
+  text-shadow:0 1px 1px rgba(55,29,13,.45)!important;
+}
+header .brand{
+  border-radius:22px!important;
+  padding:11px 16px!important;
+  background-image:
+    repeating-linear-gradient(4deg,rgba(72,39,16,.08) 0 2px,transparent 2px 11px),
+    linear-gradient(180deg,#b87338,#7d4a27)!important;
+}
+.brand h1{color:#fff8df!important;text-shadow:1px 2px 0 #5a351c!important;font-family:"Fraunces","Zen Maru Gothic",sans-serif!important}
+.brand span,.brand .stats{color:#ffe7bd!important}
+.whoami{background:#fff0cf!important;color:#604127!important;border:3px solid #a46d39!important;box-shadow:0 4px 0 #70451f!important}
+.whoami b{color:#4e8a45!important}
+/* landing: wooden sign + painted countryside */
+#landing{
+  background:
+    linear-gradient(180deg, rgba(20,15,8,.15) 0%, rgba(20,15,8,.05) 40%, rgba(20,15,8,.55) 100%),
+    url('bg-village.jpg')!important;
+  background-size: cover!important;
+  background-position: center 38%!important;
+  background-repeat: no-repeat!important;
+}
+#landing:before{ content:none!important; }
+#landing-character{
+  position:absolute; left:50%; bottom:5%; transform:translateX(-50%);
+  width:clamp(80px,22vw,120px); z-index:3; pointer-events:none;
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,.4));
+  animation: heroCharBob 2.6s ease-in-out infinite;
+}
+@keyframes heroCharBob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-8px); } }
+.arcade-stage{position:relative;z-index:2;max-width:900px!important;padding:35px 28px 45px!important}
+.arcade-title{
+  background:
+    repeating-linear-gradient(5deg,rgba(72,39,17,.08) 0 2px,transparent 2px 14px),
+    linear-gradient(#c88743,#8a522a)!important;
+  border:7px solid #63391b!important;border-radius:30px!important;
+  box-shadow:0 8px 0 #472716,0 16px 30px rgba(45,30,15,.25),inset 0 2px rgba(255,235,192,.55)!important;
+  padding:26px 35px!important;
+  transform:rotate(-1deg);
+}
+.arcade-title .jp{color:#fff7de!important;text-shadow:2px 3px 0 #56331b!important;font-family:"Fraunces","Zen Maru Gothic",sans-serif!important;font-size:clamp(30px,5vw,64px)!important}
+.arcade-title .welcome{color:#fff0c9!important}
+.arcade-copy{background:rgba(52,39,23,.76)!important;border:3px solid #9b6a39!important;border-radius:15px!important;color:#fff6df!important;box-shadow:0 4px 0 #50311b!important}
+.insert-coin{font-size:20px!important;border-radius:17px!important;min-width:300px}
+/* dashboard as farm home */
+#panel-dashboard{grid-template-columns:minmax(0,1.5fr) minmax(330px,.7fr)!important;gap:15px!important}
+#panel-dashboard:before{
+  height:440px!important;border:5px solid #7c542d!important;border-radius:28px!important;
+  background:
+    radial-gradient(ellipse at 50% 25%,rgba(255,255,255,.45),transparent 35%),
+    linear-gradient(180deg,#8fd0e9 0 43%,#b8d987 43% 51%,#77ae57 51% 73%,#d0b078 73% 100%)!important;
+  box-shadow:0 7px 0 #5f3d21,0 18px 28px rgba(70,46,23,.22),inset 0 0 80px rgba(255,255,255,.18)!important;
+  content:"🌸   🌳     🏡     🌳   🌸"!important;font-size:clamp(45px,5vw,82px)!important;line-height:360px!important;text-shadow:0 4px 5px rgba(50,70,30,.25)
+}
+#panel-dashboard:after{
+  content:"KOTODAMA 日本語の村";position:absolute;top:105px;left:45px;z-index:2;
+  padding:10px 20px;border-radius:13px;color:#fff7df;font-size:24px;font-weight:900;
+  background:linear-gradient(#a96734,#6d3f22);border:3px solid #573219;box-shadow:0 4px 0 #432617;text-shadow:1px 2px #3e2414;transform:rotate(-2deg)
+}
+.dashboard-menu{grid-template-columns:repeat(4,1fr)!important;margin-top:-50px!important;gap:14px!important}
+.dash-menu-btn{min-height:118px!important;border-radius:18px!important}
+.dash-menu-btn .dmb-icon{background:#fff0cb!important;border:3px solid #a56e37!important;color:#694020!important;border-radius:12px!important}
+.dash-menu-btn .dmb-text b{color:#fff6dd!important;text-shadow:1px 2px #5c351c!important;font-size:16px!important}
+.dash-menu-btn .dmb-text small{color:#ffe8c3!important}
+.dash-menu-btn.dash-world{background-image:repeating-linear-gradient(8deg,rgba(73,44,20,.08) 0 2px,transparent 2px 12px),linear-gradient(#86b85e,#4f8d49)!important}
+.dash-menu-btn.dash-game{background-image:repeating-linear-gradient(8deg,rgba(73,44,20,.08) 0 2px,transparent 2px 12px),linear-gradient(#e1a158,#b86d35)!important}
+.dash-menu-btn.dash-study{background-image:repeating-linear-gradient(8deg,rgba(73,44,20,.08) 0 2px,transparent 2px 12px),linear-gradient(#d58b91,#a85862)!important}
+.dash-menu-btn.dash-history{background-image:repeating-linear-gradient(8deg,rgba(73,44,20,.08) 0 2px,transparent 2px 12px),linear-gradient(#83a9bd,#557b91)!important}
+/* profile/mission */
+.player-bar,.missions-card{border-radius:22px!important;overflow:hidden}
+.missions-card{background-image:radial-gradient(circle at 90% 20%,rgba(236,177,66,.14) 0 40px,transparent 42px),radial-gradient(circle at 10% 80%,rgba(102,161,75,.10) 0 55px,transparent 57px),repeating-linear-gradient(0deg,rgba(120,80,38,.025) 0 1px,transparent 1px 4px),linear-gradient(#fff5da,#eed6a9)!important}
+.mission-row{border-color:#c2935d!important;background:#fff8e5!important}
+/* page headers */
+.page-header,.world-page-header,.rw-header{border-radius:20px!important;padding:12px 14px!important}
+.page-title,.world-page-title,.rw-title b{font-family:"Fraunces","Zen Maru Gothic",sans-serif!important;color:#fff4d9!important;text-shadow:1px 2px #58331a!important}
+.page-header{background-image:repeating-linear-gradient(7deg,rgba(75,42,18,.08) 0 2px,transparent 2px 12px),linear-gradient(#b8733b,#7e4a27)!important}
+.page-title{color:#fff4d9!important}
+/* inputs and selectors */
+.field input,.modern-select{background:#fff9e9!important;border:3px solid #b98550!important;color:#5a3b20!important;box-shadow:inset 0 2px 6px rgba(100,64,28,.08)!important;border-radius:12px!important}
+.field label,.modern-select-wrap label{color:#654526!important;font-weight:900}
+.login-btn{background-image:repeating-linear-gradient(8deg,rgba(62,39,19,.08) 0 2px,transparent 2px 12px),linear-gradient(#78ad5b,#4c8646)!important}
+/* game question cards */
+.qcard,.start-screen,.jp-card,.trivia-fact-card{border-radius:20px!important}
+.opt-row button,.navbtn,.chunk-btn,.mp-btn,.lvl-scope-btn,.irodori-scope-btn,.vi-test-btn,.vi-use-btn,.pu-btn,.pz-hint-btn,.pz-skip-btn{
+  background:
+    repeating-linear-gradient(4deg,rgba(94,58,27,.045) 0 1px,transparent 1px 7px),
+    linear-gradient(#fff9e9,#efd9b0)!important;
+  color:#5b3c20!important;border:3px solid #bd8a54!important;border-radius:13px!important;box-shadow:0 3px 0 #81532a!important;text-shadow:none!important
+}
+.opt-row button.active{background:linear-gradient(#6fae5d,#4e8d4d)!important;color:#fff!important;border-color:#3d6f3b!important}
+.play-btn,.continue-btn{background-image:repeating-linear-gradient(7deg,rgba(58,37,18,.08) 0 2px,transparent 2px 11px),linear-gradient(#78ad5d,#4d8a49)!important}
+/* world map painted terrain */
+.world-map-shell{background:
+  radial-gradient(ellipse at 50% 10%,rgba(255,255,255,.38),transparent 32%),
+  linear-gradient(180deg,#9bd8eb 0 39%,#a9d47c 39% 58%,#6ea956 58% 73%,#c9aa76 73% 100%)!important;border-radius:28px!important;overflow:hidden!important}
+.world-map-shell:before{content:"🌳     🏡       ⛩️       🌳      🗻";position:absolute;inset:8% 0 auto;text-align:center;font-size:clamp(32px,5vw,70px);letter-spacing:.08em;opacity:.85;pointer-events:none}
+.world-location{border-radius:16px!important}
+.world-location-icon{font-size:42px!important}
+/* restaurant painted wood */
+#panel-restaurant-world{background:#dce8b6!important;border-radius:25px!important}
+.rw-scene{background:
+  repeating-linear-gradient(90deg,rgba(60,35,18,.08) 0 3px,transparent 3px 17px),
+  linear-gradient(180deg,#e7b46f 0 25%,#9b6239 25% 69%,#d2ad78 69% 100%)!important;border-radius:20px!important}
+.rw-neon-sign{box-shadow:0 4px 0 #6d411f, inset 0 2px rgba(255,255,255,.5)!important}
+/* shop / collection */
+.shop-item,.shop-card,.album-card,.kotodama-card,.mini-card{border:3px solid #a66e3a!important;border-radius:15px!important;background-image:repeating-linear-gradient(0deg,rgba(115,74,33,.03) 0 1px,transparent 1px 4px),linear-gradient(#fff8e6,#ead1a3)!important;box-shadow:0 4px 0 #7a4d27!important}
+/* bottom nav if present */
+.bottom-nav,.app-nav,.nav-bar{background:repeating-linear-gradient(4deg,rgba(50,29,14,.08) 0 2px,transparent 2px 12px),linear-gradient(#8d582f,#60381f)!important;border-top:4px solid #4e2e19!important}
+/* texture edges */
+.card,.page-header,.world-page-header,.rw-header,.rw-dialogue,.player-bar,.missions-card,.shop-pane,.qcard{position:relative;overflow:hidden}
+.card:after,.page-header:after,.world-page-header:after,.rw-header:after,.rw-dialogue:after,.player-bar:after,.missions-card:after,.shop-pane:after,.qcard:after{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(115deg,rgba(255,255,255,.20),transparent 22%,transparent 78%,rgba(125,77,31,.035));
+  mix-blend-mode:multiply;opacity:.75
+}
+/* larger desktop like the reference image */
+.wrap{max-width:1500px!important;padding:18px 20px 70px!important}
+#mainApp{width:100%}
+@media(max-width:1000px){
+  #panel-dashboard{grid-template-columns:1fr!important}
+  .dashboard-menu{grid-template-columns:repeat(2,1fr)!important}
+  #panel-dashboard:before{height:350px!important}
+  #panel-dashboard:after{top:92px;left:25px}
+}
+@media(max-width:600px){
+  .wrap{padding:10px 9px 55px!important}
+  .dashboard-menu{grid-template-columns:repeat(2,1fr)!important}
+  #panel-dashboard:before{height:250px!important;line-height:220px!important;font-size:36px!important}
+  #panel-dashboard:after{font-size:16px;top:62px;left:16px}
+  .arcade-stage{padding:20px 14px 30px!important}
+  .arcade-title{padding:18px!important}
+  .arcade-title .jp{font-size:28px!important}
+}
+
 </style>
 </head>
 <body>
@@ -1258,68 +1554,20 @@
 <!-- ============================================================
      LANDING PAGE — Ruang Arcade Kabinet Neon
      ============================================================ -->
-<audio id="bgmAudio" src="harvest_moon_btn.mp3" loop preload="auto"></audio>
-<audio id="songPreviewAudio" preload="none"></audio>
+<audio id="bgmAudio" src="gyutto.mp3" loop preload="auto"></audio>
 <div id="landing">
-  <div class="floor-glow"></div>
+  <img src="char-farmer-boy.png" id="landing-character" alt="">
   <div class="arcade-stage">
-    <span class="neon-kana cy k1">ゲ</span>
-    <span class="neon-kana mg k2">ム</span>
-    <span class="neon-kana pu k3">セ</span>
-    <span class="neon-kana cy k4">ン</span>
-    <span class="neon-kana mg k5">タ</span>
-    <span class="neon-kana pu k6">ー</span>
-
     <div class="arcade-title">
       <img src="" id="landingLogoImg" alt="Nafis Sensei" class="landing-logo">
-      <div class="jp">NAFIS SENSEI ゲームコーナー</div>
-      <div class="welcome">ようこそ‼</div>
+      <div class="jp">NAFIS SENSEI の 日本語牧場</div>
+      <div class="welcome">ようこそ！ 日本語といっしょに成長しよう 🌱</div>
     </div>
-
-    <div class="arcade-scene">
-      <div class="neon-tube left"></div>
-      <div class="cabinet-wrap">
-        <div class="cab-side l"></div>
-        <div class="cab-side r"></div>
-        <div class="marquee">
-          <span class="mq-text">ARCADE</span>
-        </div>
-        <div class="cabinet-body">
-          <i class="rivet tl"></i><i class="rivet tr"></i>
-          <div class="speaker-row"><div class="speaker"></div><div class="speaker"></div></div>
-          <div class="cab-screen">
-            <div class="kanji">日本語</div>
-          </div>
-          <div class="control-panel">
-            <div class="stick-cluster">
-              <div class="joystick-ball cy"></div>
-              <div class="btn-arc"><div class="btn-dot cy"></div><div class="btn-dot cy"></div><div class="btn-dot cy"></div></div>
-              <span class="player-lbl cy">P1</span>
-            </div>
-            <div class="coin-slot"></div>
-            <div class="stick-cluster">
-              <div class="joystick-ball mg"></div>
-              <div class="btn-arc"><div class="btn-dot mg"></div><div class="btn-dot mg"></div><div class="btn-dot mg"></div></div>
-              <span class="player-lbl mg">P2</span>
-            </div>
-          </div>
-          <i class="rivet bl"></i><i class="rivet br"></i>
-        </div>
-      </div>
-      <div class="neon-tube right"></div>
-    </div>
-    <div class="cab-reflection">
-      <div class="cabinet-body">
-        <div class="cab-screen"><div class="kanji">日本語</div></div>
-      </div>
-    </div>
-
     <div class="arcade-copy">
-      <div class="id-line">Mari bermain sambil belajar bahasa Jepang</div>
-      <div class="jp-line">ゲームをしながら勉強しましょう！</div>
+      <div class="id-line">🌾 Selamat datang di desa belajar bahasa Jepang!</div>
+      <div class="jp-line">ゲームをしながら、日本語を楽しく勉強しましょう！</div>
     </div>
-
-    <button class="insert-coin" id="landingStartBtn">▶ Mulai Bermain</button>
+    <button class="insert-coin" id="landingStartBtn">▶ 村へ入る ・ Mulai Bermain</button>
   </div>
 </div>
 
@@ -1364,20 +1612,89 @@
       <div class="player-bar" id="playerBar"></div>
       <div class="missions-card" id="missionsCard"></div>
       <div id="omikujiSlot"></div>
-
       <div class="dashboard-menu">
-        <button class="dash-menu-btn dash-game" id="menuGameBtn" type="button">
-          <span class="dmb-icon">🎮</span>
-          <span class="dmb-text"><b>Mode Game</b><small>Kuis interaktif: Pola Kalimat, Kosakata & Kanji, Dokkai, Listening</small></span>
-        </button>
-        <button class="dash-menu-btn dash-study" id="menuStudyBtn" type="button">
-          <span class="dmb-icon">📖</span>
-          <span class="dmb-text"><b>Menu Pelajaran</b><small>Baca & hafalkan materi sebelum main</small></span>
-        </button>
-        <button class="dash-menu-btn dash-history" id="menuHistoryBtn" type="button">
-          <span class="dmb-icon">📜</span>
-          <span class="dmb-text"><b>Riwayat Saya</b><small>Lihat progres & skor sesi sebelumnya</small></span>
-        </button>
+        <button class="dash-menu-btn dash-world" id="menuWorldBtn" type="button"><span class="dmb-icon">🗺️</span><span class="dmb-text"><b>日本語世界</b><small>Jelajahi desa & lokasi belajar</small></span></button>
+        <button class="dash-menu-btn dash-game" id="menuGameBtn" type="button"><span class="dmb-icon">🎮</span><span class="dmb-text"><b>Mulai Game</b><small>Kuis & tantangan bahasa Jepang</small></span></button>
+        <button class="dash-menu-btn dash-study" id="menuStudyBtn" type="button"><span class="dmb-icon">📖</span><span class="dmb-text"><b>Materi Belajar</b><small>Kotoba • Kanji • Bunpo • Irodori</small></span></button>
+        <button class="dash-menu-btn dash-history" id="menuHistoryBtn" type="button"><span class="dmb-icon">🎒</span><span class="dmb-text"><b>Toko & Koleksi</b><small>Avatar • kartu • hadiah</small></span></button>
+      </div>
+    </div>
+    <!-- ================= JAPANESE WORLD MAP ================= -->
+    <div class="panel" id="panel-world">
+      <div class="world-page-header">
+        <button class="world-back-btn" id="backFromWorldBtn" type="button">← Home</button>
+        <div class="world-title-wrap">
+          <div class="world-kicker">日本の冒険</div>
+          <span class="world-page-title">🗾 JAPANESE WORLD</span>
+          <small>Belajar • Bermain • Jelajah</small>
+        </div>
+        <div class="world-level-badge" id="worldLevelBadge">LV.1</div>
+      </div>
+
+      <div class="world-map-shell">
+        <div class="world-scanline"></div>
+        <div class="world-stars" aria-hidden="true"></div>
+        <div class="world-map-grid" aria-hidden="true"></div>
+        <div class="world-map-info"><span class="world-live-dot"></span> JAPAN WORLD ONLINE <span class="world-info-sep">•</span> Pilih lokasi untuk mulai</div>
+        <svg class="world-routes" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="worldRouteGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00e5ff" stop-opacity=".9"/><stop offset="100%" stop-color="#7b2aff" stop-opacity=".75"/></linearGradient></defs>
+          <path class="world-route" d="M150 485 C220 450 260 415 315 390"/>
+          <path class="world-route" d="M315 390 C380 350 405 310 455 300"/>
+          <path class="world-route" d="M455 300 C520 270 560 245 610 225"/>
+          <path class="world-route" d="M610 225 C665 195 705 165 750 145"/>
+          <path class="world-route" d="M750 145 C805 105 850 75 895 62"/>
+        </svg>
+
+        <button class="world-location world-school unlocked" data-world-location="school" type="button"><span class="world-location-glow"></span><span class="world-location-icon">🏫</span><span class="world-location-name">日本語学校</span><span class="world-location-sub">SCHOOL</span><span class="world-location-state">✓ OPEN</span></button>
+        <button class="world-location world-station locked" data-world-location="station" type="button"><span class="world-location-glow"></span><span class="world-location-icon">🚉</span><span class="world-location-name">駅</span><span class="world-location-sub">STATION</span><span class="world-location-state">🔒 LV.3</span></button>
+        <button class="world-location world-konbini locked" data-world-location="konbini" type="button"><span class="world-location-glow"></span><span class="world-location-icon">🏪</span><span class="world-location-name">コンビニ</span><span class="world-location-sub">KONBINI</span><span class="world-location-state">🔒 LV.5</span></button>
+        <button class="world-location world-restaurant locked" data-world-location="restaurant" type="button"><span class="world-location-glow"></span><span class="world-location-icon">🍜</span><span class="world-location-name">レストラン</span><span class="world-location-sub">RESTAURANT</span><span class="world-location-state">🔒 LV.8</span></button>
+        <button class="world-location world-company locked" data-world-location="company" type="button"><span class="world-location-glow"></span><span class="world-location-icon">🏭</span><span class="world-location-name">会社</span><span class="world-location-sub">COMPANY</span><span class="world-location-state">🔒 LV.12</span></button>
+        <button class="world-location world-jlpt locked" data-world-location="jlpt" type="button"><span class="world-location-glow"></span><span class="world-location-icon">🗼</span><span class="world-location-name">JLPT TOWER</span><span class="world-location-sub">東京・JLPT</span><span class="world-location-state">🔒 LV.15</span></button>
+
+        <div class="world-player-marker" id="worldPlayerMarker" aria-hidden="true"><span>👤</span><i></i></div>
+        <div class="world-bottom-hint"><span>💡</span> Selesaikan latihan untuk mendapatkan XP dan membuka area baru.</div>
+      </div>
+    </div>
+
+
+    <!-- ================= RESTAURANT WORLD ================= -->
+    <div class="panel" id="panel-restaurant-world">
+      <div class="rw-header">
+        <button class="rw-back" id="rwBackMap" type="button">← MAP</button>
+        <div class="rw-title"><span>🍜</span><div><b>ことだま食堂</b><small>RESTAURANT WORLD</small></div></div>
+        <div class="rw-stats"><span>⭐ <b id="rwMissionNo">1</b>/10</span><span>🪙 <b id="rwCoins">0</b></span></div>
+      </div>
+      <div class="rw-progress"><i id="rwProgressFill"></i></div>
+      <div class="rw-scene" id="rwScene">
+        <div class="rw-lantern l1">🏮</div><div class="rw-lantern l2">🏮</div>
+        <div class="rw-neon-sign">ことだま<br><span>食堂</span></div>
+        <div class="rw-wall-art">🍜</div>
+        <button class="rw-hotspot rw-table t1" id="rwTable1" type="button" data-target="店内"><span>🍵</span><i>🪑</i><small>席</small></button>
+        <button class="rw-hotspot rw-table t2" id="rwTable2" type="button" data-target="注文"><span>🍱</span><i>🪑</i><small>注文</small></button>
+        <button class="rw-hotspot rw-counter" id="rwCounter" type="button" data-target="料理"><span>🍣</span><span>🍜</span><span>🥟</span><b>厨房</b><small>厨房</small></button>
+        <button class="rw-hotspot rw-door" id="rwDoor" type="button" data-target="店内">🚪<small>入口</small></button>
+        <button class="rw-hotspot rw-npc" id="rwNpc" type="button" data-target="接客"><div class="rw-npc-avatar">👨‍🍳</div><div class="rw-npc-name">田中さん</div></button>
+        <div class="rw-player" id="rwPlayer"><div class="rw-avatar">🧑</div><div class="rw-player-name">YOU</div></div>
+        <div class="rw-floor-glow"></div>
+      </div>
+      <div class="rw-actionbar" id="rwActionbar">
+        <span>INTERACT</span>
+        <button type="button" data-target="店内">🪑 席</button>
+        <button type="button" data-target="注文">📝 注文</button>
+        <button type="button" data-target="料理">🍜 厨房</button>
+        <button type="button" data-target="会計">💴 会計</button>
+        <button type="button" data-target="接客">🗣️ 接客</button>
+      </div>
+      <div class="rw-dialogue" id="rwDialogue">
+        <div class="rw-speaker"><span id="rwSpeakerIcon">👨‍🍳</span><b id="rwSpeaker">田中さん</b><small id="rwRole">店員</small></div>
+        <div class="rw-text" id="rwText">いらっしゃいませ！</div>
+        <div class="rw-question" id="rwQuestion"></div>
+        <div class="rw-feedback" id="rwFeedback"></div>
+      </div>
+      <div class="rw-bottom">
+        <div class="rw-energy"><span>😊 CUSTOMER</span><div><i id="rwHeart1">♥</i><i id="rwHeart2">♥</i><i id="rwHeart3">♥</i><i id="rwHeart4">♥</i><i id="rwHeart5">♥</i></div></div>
+        <div class="rw-combo" id="rwCombo">COMBO ×0</div>
       </div>
     </div>
 
@@ -1673,11 +1990,11 @@ function playSFX(type) {
 }
 
 /* ============================================================
-   MUSIK LATAR (BGM) — pakai file audio asli (default: harvest_moon_btn.mp3),
-   bukan sintesis Web Audio. Lagu yang sedang aktif (lihat SONG_SHOP &
-   applySong) diputar di semua layar & mode permainan, KECUALI Mode
-   Dengar & Tebak yang sengaja TANPA musik sama sekali (biar tidak
-   mengganggu konsentrasi mendengar soal TTS).
+   MUSIK LATAR (BGM) — pakai file audio asli (gyutto.mp3), bukan
+   lagi sintesis Web Audio. SATU lagu yang sama diputar di semua
+   layar & mode permainan, KECUALI Mode Dengar & Tebak yang sengaja
+   TANPA musik sama sekali (biar tidak mengganggu konsentrasi
+   mendengar soal TTS).
    ============================================================ */
 function bgmEl(){ return document.getElementById('bgmAudio'); }
 let bgmPlaying = false;
@@ -1688,7 +2005,7 @@ let bgmPlaying = false;
    penanda "ada musik" (truthy), bukan nama tema lagi. */
 function gameModeBgmTheme(mode, type){
   if(type === 'listening') return null; // tanpa musik, biar tidak ganggu dengar
-  return 'bgm-on';
+  return 'gyutto';
 }
 function setBgmTheme(themeId){
   if(!themeId){ stopBGM(); return; } // listening -> matikan total
@@ -1814,13 +2131,10 @@ function getPlayerProfile(){
       // migrasi data lama yang belum punya field avatar
       if(!p.avatar) p.avatar = "pelajar";
       if(!p.ownedAvatars) p.ownedAvatars = ["pelajar"];
-      // migrasi data lama yang belum punya field lagu (BGM bisa diganti)
-      if(!p.song) p.song = "harvestmoon";
-      if(!p.ownedSongs) p.ownedSongs = ["harvestmoon"];
       return p;
     }
   }catch(e){}
-  return { xp: 0, coins: 0, theme: "default", ownedThemes: ["default"], avatar: "pelajar", ownedAvatars: ["pelajar"], song: "harvestmoon", ownedSongs: ["harvestmoon"], lastPlayDate: null, streakDays: 0 };
+  return { xp: 0, coins: 0, theme: "default", ownedThemes: ["default"], avatar: "pelajar", ownedAvatars: ["pelajar"], lastPlayDate: null, streakDays: 0 };
 }
 function savePlayerProfile(p){ localStorage.setItem(playerProfileKey(), JSON.stringify(p)); }
 
@@ -1828,12 +2142,16 @@ function savePlayerProfile(p){ localStorage.setItem(playerProfileKey(), JSON.str
    biar nyambung sama tema belajar bahasanya. */
 const AVATAR_SHOP = [
   { id: "pelajar", emoji: "🎓", img: "pelajar.png", name: "Pelajar Rajin", price: 0 },
+  { id: "petani_wanita", emoji: "🌾", img: "petani-wanita.png", name: "Petani Ceria", price: 100 },
+  { id: "gadis_pemberani", emoji: "🎀", img: "gadis-pemberani.png", name: "Gadis Pemberani", price: 200 },
   { id: "neko",     emoji: "🐱", img: "neko.png", name: "Neko Beruntung", price: 150 },
   { id: "ninja",    emoji: "🥷", img: "ninja.png", name: "Ninja Kata", price: 250 },
   { id: "kitsune",  emoji: "🦊", img: "kitsune.png", name: "Kitsune Cerdik", price: 300 },
+  { id: "pandai_besi", emoji: "🔨", img: "pandai-besi.png", name: "Pandai Besi", price: 350 },
   { id: "robot",    emoji: "🤖", img: null, name: "Robot Sensei", price: 400 },
   { id: "tengu",    emoji: "👺", img: "tengu.png", name: "Tengu Sakti", price: 500 },
   { id: "penyihir", emoji: "🧙", img: "penyihir.png", name: "Penyihir Bijak", price: 600 },
+  { id: "ilmuwan",  emoji: "🔬", img: "ilmuwan.png", name: "Ilmuwan Muda", price: 700 },
   { id: "naga",     emoji: "🐉", img: "naga.png", name: "Naga Legenda", price: 800 },
   { id: "sensei_agung", emoji: "🌟", img: "legend.png", name: "Sensei Agung", price: 2000 }
 ];
@@ -1889,34 +2207,6 @@ function applyTheme(themeId){
   document.documentElement.style.setProperty("--cyan", t.colors.cyan);
   document.documentElement.style.setProperty("--sakura", t.colors.sakura);
   document.documentElement.style.setProperty("--bg", t.colors.bg || "#0A0A14");
-}
-
-/* Lagu musik latar (BGM) yang bisa dibeli pakai koin di Toko, biar
-   siswa bisa ganti suasana musik sambil belajar. "OST Harvest Moon BTN"
-   jadi lagu default gratis; "Gyutto" (bekas lagu default) sekarang jadi
-   lagu berbayar 🪙 300 koin, lagu lain tetap 🪙 800 koin. */
-const SONG_SHOP = [
-  { id: "harvestmoon", name: "OST Harvest Moon BTN (Default)", price: 0, file: "harvest_moon_btn.mp3" },
-  { id: "gyutto", name: "Gyutto", price: 300, file: "gyutto.mp3" },
-  { id: "fuyu",   name: "Fuyu no Purezento (Instrumental)", price: 800, file: "fuyu_no_purezento.mp3" },
-  { id: "koiiro", name: "Koiiro 恋色 (Piano Cover)", price: 800, file: "koiiro_piano.mp3" }
-];
-/* Ganti file lagu yang diputar di elemen <audio id="bgmAudio">. Kalau
-   musik sedang main, lagu baru langsung lanjut main (tanpa perlu
-   menekan tombol lain); kalau sedang mati/silent, cukup ganti sumbernya
-   saja supaya siap diputar saat startBGM() dipanggil berikutnya. */
-function applySong(songId){
-  const s = SONG_SHOP.find(x=>x.id===songId) || SONG_SHOP[0];
-  const audio = bgmEl();
-  if(!audio) return;
-  if(audio.getAttribute("src") === s.file) return; // sudah lagu yang sama, tidak perlu reload
-  const wasPlaying = bgmPlaying && !audio.paused;
-  audio.src = s.file;
-  if(wasPlaying){
-    audio.volume = 1;
-    const p = audio.play();
-    if(p && typeof p.catch === 'function') p.catch(()=>{});
-  }
 }
 
 /* Tambah XP+koin, tampilkan toast, dan cek level-up (banner). Dipanggil
@@ -1985,9 +2275,8 @@ function renderPlayerBar(){
   const profile = getPlayerProfile();
   const info = levelInfoFromXP(profile.xp);
   applyTheme(profile.theme || "default");
-  applySong(profile.song || "harvestmoon");
   bar.innerHTML = `
-    <div class="pb-avatar-wrap" id="pbAvatarWrap" title="Ganti Avatar">
+    <div class="pb-avatar-wrap" id="pbAvatarWrap" title="Buka Toko">
       <div class="pb-avatar">${currentAvatarThumb(40)}</div>
       <div class="pb-lvbadge">${info.level}</div>
       ${profile.streakDays > 1 ? `<div class="pb-streakbadge">🔥${profile.streakDays}</div>` : ""}
@@ -1997,25 +2286,17 @@ function renderPlayerBar(){
       <div class="pb-xptrack"><div class="pb-xpfill" style="width:${Math.round(info.xpIntoLevel/info.xpNeeded*100)}%"></div></div>
     </div>
     <div class="pb-coins">🪙 ${profile.coins}</div>
-    <button class="pb-shopbtn" id="openAlbumBtn" title="Album Kartu Kotodama" style="border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.08);">🃏</button>
-    <button class="pb-shopbtn" id="openSongShopBtn" title="Beli/Ganti Lagu">🎵</button>
-    <button class="pb-shopbtn" id="openShopBtn" title="Toko Tema">🏪</button>
+    <button class="pb-shopbtn" id="openAlbumBtn" style="border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.08);">🃏</button>
+    <button class="pb-shopbtn" id="openShopBtn">🏪</button>
   `;
   $("openShopBtn").addEventListener("click", ()=>openShop("theme"));
   $("openAlbumBtn").addEventListener("click", openAlbum);
-  $("openSongShopBtn").addEventListener("click", ()=>openShop("song"));
   $("pbAvatarWrap").addEventListener("click", ()=>openShop("avatar"));
 }
 
 function openShop(initialTab){
   initialTab = initialTab || "theme";
   const profile = getPlayerProfile();
-  // Musik latar (bgmAudio) dijeda selagi Toko terbuka, supaya tidak
-  // tabrakan / dobel suara dengan cuplikan pratinjau lagu. Statusnya
-  // disimpan di sini agar bisa dilanjutkan lagi begitu Toko ditutup.
-  const bgm = bgmEl();
-  const bgmWasPlaying = !!(bgmPlaying && bgm && !bgm.paused);
-  if(bgm) bgm.pause();
   const el = document.createElement("div");
   el.className = "shop-overlay";
   el.innerHTML = `
@@ -2025,7 +2306,6 @@ function openShop(initialTab){
       <div class="shop-tabs">
         <button class="shop-tab ${initialTab==='theme'?'active':''}" data-tab="theme">🎨 Tema</button>
         <button class="shop-tab ${initialTab==='avatar'?'active':''}" data-tab="avatar">🧑‍🎤 Avatar</button>
-        <button class="shop-tab ${initialTab==='song'?'active':''}" data-tab="song">🎵 Lagu</button>
       </div>
 
       <div class="shop-pane ${initialTab==='theme'?'active':''}" id="paneTheme">
@@ -2071,21 +2351,6 @@ function openShop(initialTab){
         </div>
       </div>
 
-      <div class="shop-pane ${initialTab==='song'?'active':''}" id="paneSong">
-        ${SONG_SHOP.map(s=>{
-          const owned = profile.ownedSongs.includes(s.id);
-          const active = profile.song === s.id;
-          return `<div class="shop-item">
-            <div class="si-swatch" style="background:rgba(0,229,255,.12);display:flex;align-items:center;justify-content:center;font-size:16px;">🎵</div>
-            <div class="si-mid"><div class="si-name">${s.name}</div><div class="si-price">${s.price===0?'Gratis':'🪙 '+s.price}</div></div>
-            <button data-kind="song-preview" data-file="${s.file}" title="Dengar cuplikan" style="flex-shrink:0;padding:7px 9px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--sub);font-size:12px;">▶</button>
-            <button data-kind="song" data-id="${s.id}" data-price="${s.price}" class="${active?'owned':''}" ${active?'disabled':''}>
-              ${active ? '✓ Dipakai' : (owned ? 'Pakai' : 'Beli')}
-            </button>
-          </div>`;
-        }).join("")}
-      </div>
-
       <button class="shop-close" id="shopCloseBtn">Tutup</button>
     </div>
   `;
@@ -2096,8 +2361,7 @@ function openShop(initialTab){
       el.querySelectorAll(".shop-tab").forEach(b=>b.classList.remove("active"));
       el.querySelectorAll(".shop-pane").forEach(p=>p.classList.remove("active"));
       tabBtn.classList.add("active");
-      const paneMap = { theme: "#paneTheme", avatar: "#paneAvatar", song: "#paneSong" };
-      el.querySelector(paneMap[tabBtn.dataset.tab]).classList.add("active");
+      el.querySelector(tabBtn.dataset.tab==='theme' ? "#paneTheme" : "#paneAvatar").classList.add("active");
     });
   });
 
@@ -2114,7 +2378,7 @@ function openShop(initialTab){
       p.theme = id;
       savePlayerProfile(p);
       applyTheme(id);
-      closeShop();
+      el.remove();
       renderPlayerBar();
       showGameToast("🎨 Tema diterapkan!");
     });
@@ -2148,80 +2412,7 @@ function openShop(initialTab){
     });
   });
 
-  // beli/pakai LAGU
-  el.querySelectorAll('button[data-kind="song"]').forEach(btn=>{
-    btn.addEventListener("click", ()=>{
-      const id = btn.dataset.id, price = parseInt(btn.dataset.price);
-      const p = getPlayerProfile();
-      if(!p.ownedSongs.includes(id)){
-        if(p.coins < price){ showGameToast("🪙 Koin tidak cukup!"); return; }
-        p.coins -= price;
-        p.ownedSongs.push(id);
-        spawnConfetti(window.innerWidth/2, window.innerHeight/2, 24);
-      }
-      p.song = id;
-      savePlayerProfile(p);
-      // Hentikan dulu cuplikan pratinjau (kalau ada) supaya tidak dobel
-      // dengan musik latar yang akan dilanjutkan saat Toko ditutup.
-      const previewEl = document.getElementById("songPreviewAudio");
-      if(previewEl) previewEl.pause();
-      applySong(id);
-      closeShop();
-      renderPlayerBar();
-      const s = SONG_SHOP.find(x=>x.id===id);
-      showGameToast("🎵 Lagu \""+s.name+"\" dipakai!");
-    });
-  });
-
-  // pratinjau LAGU — putar cuplikan lewat elemen audio terpisah supaya
-  // tidak bentrok dengan objek bgmAudio (yang sudah dijeda selama Toko
-  // terbuka). Ada penanganan error supaya kalau file lagu belum ada /
-  // salah nama di server, siswa dapat pesan yang jelas, bukan diam saja.
-  el.querySelectorAll('button[data-kind="song-preview"]').forEach(btn=>{
-    btn.addEventListener("click", ()=>{
-      const preview = document.getElementById("songPreviewAudio");
-      if(!preview) return;
-      const file = btn.dataset.file;
-      const isSameAndPlaying = preview.dataset.currentFile === file && !preview.paused;
-      preview.pause();
-      clearTimeout(preview._previewTimer);
-      el.querySelectorAll('button[data-kind="song-preview"]').forEach(b=> b.textContent = "▶");
-      if(isSameAndPlaying) return; // klik lagi utk stop
-      preview.onerror = null;
-      preview.onerror = ()=>{
-        btn.textContent = "▶";
-        showGameToast("⚠️ Gagal memutar \""+file+"\" — pastikan file lagu sudah diupload di folder yang sama");
-      };
-      preview.dataset.currentFile = file;
-      preview.src = file;
-      preview.currentTime = 0;
-      preview.volume = 0.9;
-      const pr = preview.play();
-      if(pr && typeof pr.catch === 'function'){
-        pr.catch(()=>{
-          btn.textContent = "▶";
-          showGameToast("⚠️ Gagal memutar \""+file+"\" — pastikan file lagu sudah diupload di folder yang sama");
-        });
-      }
-      btn.textContent = "⏸";
-      preview._previewTimer = setTimeout(()=>{ preview.pause(); btn.textContent = "▶"; }, 8000);
-    });
-  });
-
-  // Tutup Toko: hentikan pratinjau (kalau masih main) & lanjutkan lagi
-  // musik latar jika sebelumnya memang sedang menyala.
-  function closeShop(){
-    const preview = document.getElementById("songPreviewAudio");
-    if(preview){ preview.pause(); clearTimeout(preview._previewTimer); }
-    el.remove();
-    if(bgmWasPlaying && bgm){
-      bgm.volume = 1;
-      const p = bgm.play();
-      if(p && typeof p.catch === 'function') p.catch(()=>{});
-      bgmPlaying = true;
-    }
-  }
-  el.querySelector("#shopCloseBtn").addEventListener("click", closeShop);
+  el.querySelector("#shopCloseBtn").addEventListener("click", ()=> el.remove());
 }
 
 /* ============================================================
@@ -2720,10 +2911,7 @@ function renderMissionsCard(){
         <span class="m-icon">${m.claimed?'✅':m.icon}</span>
         <div class="m-body">
           <div class="m-label">${m.label}</div>
-          <div class="m-track-row">
-            <div class="m-track"><div class="m-fill" style="width:${Math.min(100,Math.round(m.progress/m.target*100))}%"></div></div>
-            <div class="m-count">${m.claimed ? 'Selesai' : `${Math.min(m.progress,m.target)}/${m.target}`}</div>
-          </div>
+          <div class="m-track"><div class="m-fill" style="width:${Math.min(100,Math.round(m.progress/m.target*100))}%"></div></div>
         </div>
         <div class="m-reward">+${m.xp}XP</div>
       </div>
@@ -2762,7 +2950,6 @@ function showBossIntro(callback){
 <script src="kanji-terjemahan.js"></script>
 <script src="kotoba-terjemahan.js"></script>
 <script src="irodori.js"></script>
-<script src="jft-soal.js"></script>
 <script src="trivia.js"></script>
 
 <script>
@@ -2818,6 +3005,108 @@ function levelColor(lvl){
   return 'var(--n5)';
 }
 
+/* ================= JAPANESE WORLD MAP ================= */
+const WORLD_LOCATIONS = {
+  school:{level:1,icon:'🏫',title:'日本語学校',sub:'SCHOOL',desc:'Pusat belajar utama. Latih Bunpo, Kanji, Kotoba, Irodori, dan dasar JLPT.',focus:['📖 Bunpo','🈶 Kanji','📝 Kotoba','🌸 Irodori']},
+  station:{level:3,icon:'🚉',title:'駅',sub:'STATION',desc:'Bahasa Jepang di stasiun: waktu, arah, pengumuman, dan listening.',focus:['🎧 Listening','📖 Reading','🕐 Waktu','🧭 Arah']},
+  konbini:{level:5,icon:'🏪',title:'コンビニ',sub:'KONBINI',desc:'Situasi sehari-hari di konbini untuk melatih kosakata dan respons percakapan.',focus:['🗣️ Kaiwa','🛍️ Kotoba','🎧 Listening','🌸 Irodori']},
+  restaurant:{level:8,icon:'🍜',title:'レストラン',sub:'RESTAURANT',desc:'Latihan memesan makanan, memahami menu, dan berinteraksi dengan pelayan.',focus:['🍱 Food','🗣️ Kaiwa','🎧 Listening','📝 Kotoba']},
+  company:{level:12,icon:'🏭',title:'会社',sub:'COMPANY',desc:'Bahasa Jepang untuk dunia kerja: instruksi, laporan, komunikasi, dan kosakata perusahaan.',focus:['🏭 Work Japanese','📣 報告・連絡','🗣️ Kaiwa','🎴 Kotoba']},
+  jlpt:{level:15,icon:'🗼',title:'JLPT TOWER',sub:'東京・JLPT',desc:'Menara tantangan berjenjang dari N5 sampai N1.',focus:['N5','N4','N3','N2 / N1']}
+};
+function worldPlayerLevel(){try{const p=getPlayerProfile();const i=levelInfoFromXP(p.xp||0);return Number(i.level||1)}catch(e){return 1}}
+function renderWorldMap(){const level=worldPlayerLevel();const badge=$("worldLevelBadge");if(badge)badge.textContent=`LV.${level}`;document.querySelectorAll('.world-location').forEach(n=>{const d=WORLD_LOCATIONS[n.dataset.worldLocation];if(!d)return;const u=level>=d.level;n.classList.toggle('locked',!u);n.classList.toggle('unlocked',u);const st=n.querySelector('.world-location-state');if(st)st.textContent=u?'✓ OPEN':`🔒 LV.${d.level}`})}
+function openWorldLocation(key){
+  const d=WORLD_LOCATIONS[key]; if(!d)return;
+  const level=worldPlayerLevel(); const unlocked=level>=d.level;
+  // Restaurant World adalah mode baru, bukan menu quiz lama.
+  // Untuk prototype, Restaurant selalu bisa dibuka langsung dari World Map.
+  if(key==='restaurant'){ openRestaurantWorld(); return; }
+  const old=document.querySelector('.world-location-modal'); if(old)old.remove();
+  const modal=document.createElement('div'); modal.className='world-location-modal';
+  modal.innerHTML=`<div class="world-location-card" role="dialog" aria-modal="true"><div class="world-modal-icon">${d.icon}</div><div class="world-modal-title">${d.title}</div><div class="world-modal-sub">${d.sub}</div><div class="world-modal-desc">${d.desc}</div>${unlocked?'':`<div class="world-lock-note">🔒 Terbuka pada Level ${d.level}. Kamu sekarang Level ${level}.</div>`}<div class="world-modal-focus">${d.focus.map(x=>`<span class="world-focus-chip">${x}</span>`).join('')}</div><div class="world-modal-actions"><button class="world-modal-close" type="button">Tutup</button>${unlocked?'<button class="world-modal-enter" type="button">🚪 Masuk</button>':''}</div></div>`;
+  document.body.appendChild(modal); const close=()=>modal.remove(); modal.querySelector('.world-modal-close').addEventListener('click',close); modal.addEventListener('click',e=>{if(e.target===modal)close()});
+  const enter=modal.querySelector('.world-modal-enter'); if(enter)enter.addEventListener('click',()=>{close(); if(key==='restaurant')openRestaurantWorld(); else showPage('game')});
+}
+
+/* ================= RESTAURANT WORLD ENGINE ================= */
+const RESTAURANT_MISSIONS = [
+ {id:'r01',stage:'店内',speaker:'田中さん',icon:'👨‍🍳',text:'いらっしゃいませ！何名様ですか？',prompt:'Pilih jawaban yang tepat.',options:['二人です。','二つです。','二枚です。','二時です。'],answer:0,success:'はい、二名様ですね。こちらへどうぞ。',learn:'「何名様ですか？」 digunakan untuk menanyakan jumlah orang.',reward:20,coins:10},
+ {id:'r02',stage:'店内',speaker:'田中さん',icon:'👨‍🍳',text:'お客様を席へご案内します。「席」はどれですか？',prompt:'Klik jawaban yang berarti tempat duduk.',options:['店 🏪','席 🪑','客 👤','料理 🍱'],answer:1,success:'正解！こちらのお席へどうぞ。',learn:'席（せき）= tempat duduk / kursi.',reward:20,coins:10},
+ {id:'r03',stage:'店内',speaker:'お客様',icon:'👩',text:'すみません。トイレはどこですか？',prompt:'Pilih ikon yang harus ditunjukkan.',options:['🚻 トイレ','🍜 料理','💴 レジ','🍳 厨房'],answer:0,success:'ありがとうございます！',learn:'トイレ = toilet. レジ = kasir.',reward:20,coins:10},
+ {id:'r04',stage:'店内',speaker:'田中さん',icon:'👨‍🍳',text:'「みせ」という漢字を探してください。',prompt:'Cari kanji yang benar.',options:['店','駅','山','車'],answer:0,success:'✨ KANJI FOUND！',learn:'店（みせ）= toko / tempat usaha.',reward:25,coins:12},
+ {id:'r05',stage:'店内',speaker:'お客様',icon:'👨',text:'こんにちは。',prompt:'Sebagai staf restoran, apa respons yang paling tepat?',options:['いらっしゃいませ。','いただきます。','ごちそうさまでした。','おやすみなさい。'],answer:0,success:'いらっしゃいませ！',learn:'いらっしゃいませ = selamat datang, diucapkan staf kepada pelanggan.',reward:25,coins:12},
+ {id:'r06',stage:'注文',speaker:'田中さん',icon:'👨‍🍳',text:'ご注文はお決まりですか？',prompt:'Pelanggan ingin ramen. Pilih respons.',options:['はい、ラーメンをお願いします。','はい、トイレです。','二人です。','三時です。'],answer:0,success:'ありがとうございます。',learn:'ご注文はお決まりですか？ = Apakah sudah menentukan pesanan?',reward:30,coins:15},
+ {id:'r07',stage:'注文',speaker:'お客様',icon:'👩',text:'ラーメンを一つと、水を二つください。',prompt:'Ambil pesanan yang benar.',options:['🍜 ×1　🥤 ×2','🍜 ×2　🥤 ×1','🍣 ×1　🥤 ×2','🍜 ×1　🍵 ×2'],answer:0,success:'注文成功！✨',learn:'一つ = satu buah/item; 二つ = dua buah/item; 水 = air.',reward:35,coins:18},
+ {id:'r08',stage:'料理',speaker:'料理長',icon:'👨‍🍳',text:'このラーメンは熱いです。気をつけてください。',prompt:'Pilih makna yang tepat.',options:['Ramen ini panas, hati-hati.','Ramen ini dingin, hati-hati.','Ramen ini manis, silakan.','Ramen ini pedas, tunggu.'],answer:0,success:'そうですね。気をつけましょう！',learn:'熱い（あつい）= panas; 気をつけてください = harap berhati-hati.',reward:30,coins:15},
+ {id:'r09',stage:'会計',speaker:'お客様',icon:'👨',text:'ラーメン900円、水100円です。合計はいくらですか？',prompt:'Hitung total pembayaran.',options:['800円','900円','1,000円','1,100円'],answer:2,success:'合計は1,000円です！',learn:'合計（ごうけい）= total. 円（えん）= yen.',reward:35,coins:20},
+ {id:'r10',stage:'接客',speaker:'お客様',icon:'👩',text:'すみません。この料理、注文したものと違うんですが。',prompt:'Pilih respons pelayanan terbaik.',options:['そうですか。','ちょっと待って。','申し訳ございません。すぐ確認いたします。','違います。'],answer:2,success:'🌟 接客 PERFECT！お客様も安心しました。',learn:'申し訳ございません = mohon maaf (sangat sopan). 確認いたします = akan saya periksa.',reward:60,coins:35}
+];
+let rwState={index:0,combo:0,satisfaction:5,locked:false,interacted:false,target:''};
+function rwGetProgress(){try{return JSON.parse(localStorage.getItem('kotodama_restaurant_progress')||'{}')}catch(e){return {}}}
+function rwSaveProgress(){localStorage.setItem('kotodama_restaurant_progress',JSON.stringify({cleared:rwState.index,combo:rwState.combo,best:Math.max(Number(rwGetProgress().best||0),rwState.index)}))}
+function openRestaurantWorld(){
+  document.querySelectorAll('.dashboard-layout > .panel').forEach(p=>p.classList.remove('active'));
+  $('panel-restaurant-world').classList.add('active'); startBGM();
+  const saved=rwGetProgress(); rwState.index=Math.min(Number(saved.cleared||0),RESTAURANT_MISSIONS.length-1); rwState.combo=0; rwState.satisfaction=5; rwState.locked=false;
+  renderRestaurantMission();
+}
+function rwTargetForStage(stage){
+  if(stage==='店内') return '店内';
+  if(stage==='注文') return '注文';
+  if(stage==='料理') return '料理';
+  if(stage==='会計') return '会計';
+  return '接客';
+}
+function activateRestaurantTarget(target){
+  if(rwState.locked)return;
+  const m=RESTAURANT_MISSIONS[rwState.index];
+  if(target!==rwState.target){
+    $('rwFeedback').textContent=`🔎 Bukan area yang dibutuhkan. Cari: ${rwState.target}`;
+    $('rwFeedback').className='rw-feedback bad';
+    return;
+  }
+  rwState.interacted=true;
+  $('rwFeedback').textContent='🎮 Interaksi berhasil! Sekarang pilih respons yang tepat.';
+  $('rwFeedback').className='rw-feedback good';
+  $('rwQuestion').querySelectorAll('.rw-option').forEach(b=>{b.disabled=false;b.classList.remove('rw-disabled')});
+  document.querySelectorAll('.rw-actionbar button').forEach(b=>b.classList.toggle('active',b.dataset.target===target));
+  document.querySelectorAll('.rw-hotspot').forEach(b=>b.classList.toggle('rw-target',false));
+}
+function renderRestaurantMission(){
+  const m=RESTAURANT_MISSIONS[rwState.index]; if(!m)return; rwState.locked=false; rwState.interacted=false; rwState.target=rwTargetForStage(m.stage);
+  $('rwMissionNo').textContent=rwState.index+1; $('rwProgressFill').style.width=((rwState.index+1)/RESTAURANT_MISSIONS.length*100)+'%'; $('rwCoins').textContent=(getPlayerProfile().coins||0);
+  $('rwSpeakerIcon').textContent=m.icon; $('rwSpeaker').textContent=m.speaker; $('rwRole').textContent=m.stage; $('rwText').textContent=m.text; $('rwFeedback').textContent=`🎯 Cari objek/area: ${rwState.target} lalu pilih jawaban.`; $('rwFeedback').className='rw-feedback';
+  $('rwQuestion').innerHTML=m.options.map((x,i)=>`<button class="rw-option rw-disabled" type="button" disabled data-answer="${i}">${x}</button>`).join('');
+  $('rwQuestion').querySelectorAll('.rw-option').forEach(btn=>btn.addEventListener('click',()=>answerRestaurant(Number(btn.dataset.answer))));
+  document.querySelectorAll('.rw-actionbar button').forEach(b=>{b.classList.toggle('active',false);b.onclick=()=>activateRestaurantTarget(b.dataset.target)});
+  document.querySelectorAll('.rw-hotspot').forEach(b=>{b.classList.remove('rw-target');b.onclick=()=>activateRestaurantTarget(b.dataset.target)});
+  document.querySelectorAll('.rw-hotspot').forEach(b=>{if(b.dataset.target===rwState.target)b.classList.add('rw-target')});
+  $('rwCombo').textContent=`COMBO ×${rwState.combo}`; for(let i=1;i<=5;i++)$('rwHeart'+i).style.opacity=i<=rwState.satisfaction?'1':'.18';
+  const player=$('rwPlayer'),npc=$('rwNpc'); player.style.left=rwState.index%3===0?'27%':rwState.index%3===1?'38%':'57%'; player.style.bottom=rwState.index%2===0?'17%':'23%'; npc.style.left=rwState.index>=5?'55%':'46%';
+}
+function answerRestaurant(choice){
+  if(rwState.locked)return; rwState.locked=true; const m=RESTAURANT_MISSIONS[rwState.index]; const buttons=[...$('rwQuestion').querySelectorAll('.rw-option')]; buttons.forEach(b=>b.disabled=true);
+  if(choice===m.answer){
+    buttons[choice].classList.add('correct'); rwState.combo++; rwState.satisfaction=Math.min(5,rwState.satisfaction+1); $('rwFeedback').textContent=`✨ ${m.success}  +${m.reward} XP  +${m.coins} 🪙`; $('rwFeedback').className='rw-feedback good'; awardXPCoins(m.reward,m.coins);
+    if(rwState.index===RESTAURANT_MISSIONS.length-1)setTimeout(showRestaurantFinalReward,850); else {rwState.index++; rwSaveProgress(); setTimeout(renderRestaurantMission,950);}
+  }else{
+    buttons[choice].classList.add('wrong'); buttons[m.answer].classList.add('correct'); rwState.combo=0; rwState.satisfaction=Math.max(1,rwState.satisfaction-1); $('rwFeedback').textContent=`❌ Belum tepat. Jawaban: ${m.options[m.answer]} — ${m.learn}`; $('rwFeedback').className='rw-feedback bad'; $('rwCombo').textContent='COMBO ×0'; for(let i=1;i<=5;i++)$('rwHeart'+i).style.opacity=i<=rwState.satisfaction?'1':'.18'; setTimeout(()=>{rwState.locked=false;buttons.forEach(b=>b.disabled=false)},1100);
+  }
+  $('rwCoins').textContent=(getPlayerProfile().coins||0);
+}
+function showRestaurantFinalReward(){
+  rwSaveProgress(); const old=document.querySelector('.rw-reward-modal'); if(old)old.remove(); const modal=document.createElement('div'); modal.className='rw-reward-modal';
+  modal.innerHTML=`<div class="rw-reward-card"><div class="gift">🎁</div><h3>RESTAURANT WORLD CLEAR!</h3><p>ことだま食堂をクリアしました。<br>Reward spesial terbuka!</p><div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:16px"><span class="world-focus-chip">+100 XP</span><span class="world-focus-chip">+100 🪙</span><span class="world-focus-chip">🎴 Ramen Card</span><span class="world-focus-chip">🎩 Chef Hat</span><span class="world-focus-chip">🏮 Background</span></div><button class="rw-reward-btn" type="button">🗺️ Kembali ke World Map</button></div>`;
+  document.body.appendChild(modal); modal.querySelector('.rw-reward-btn').addEventListener('click',()=>{modal.remove();openWorldMap()}); awardXPCoins(100,100);
+}
+$('rwBackMap').addEventListener('click',openWorldMap);
+
+document.querySelectorAll('.world-location').forEach(n=>n.addEventListener('click',()=>openWorldLocation(n.dataset.worldLocation)));
+function openWorldMap(){renderWorldMap();showPage('world')}
+
+$("menuWorldBtn").addEventListener("click", openWorldMap);
+$("backFromWorldBtn").addEventListener("click", goHome);
 $("menuGameBtn").addEventListener("click", () => showPage('game'));
 $("menuStudyBtn").addEventListener("click", () => showPage('study'));
 $("menuHistoryBtn").addEventListener("click", () => showPage('history'));
@@ -2829,7 +3118,13 @@ function showPage(page) {
   startBGM(); // navigasi dashboard (bukan sedang mengerjakan kuis) -> musik menyala
   document.querySelectorAll(".dashboard-layout > .panel").forEach(p => p.classList.remove("active"));
 
-  if (page === 'game') {
+  if (page === 'world') {
+    $("panel-world").classList.add("active");
+    renderWorldMap();
+  } else if (page === 'restaurant') {
+    $("panel-restaurant-world").classList.add("active");
+    renderRestaurantMission();
+  } else if (page === 'game') {
     $("panel-game").classList.add("active");
     renderStart();
   } else if (page === 'study') {
@@ -2875,7 +3170,7 @@ window.addEventListener("load", ()=>{
     initApp();
   }
   const patN = PATTERNS.length, vocN = VOCAB.length, dokN = (typeof DOKKAI !== 'undefined' ? DOKKAI.length : 0);
-  $("dataStats").innerHTML = `<span class="stat-chip">${patN} pola kalimat</span><span class="stat-chip">${vocN} kanji/kosakata</span><span class="stat-chip">${dokN} bacaan dokkai</span>`;
+  $("dataStats").textContent = `${patN} pola kalimat (N5-N1) • ${vocN} kanji/kosakata (N5-N1) • ${dokN} bacaan dokkai (N5-N1)`;
 });
 
 function initApp(){
@@ -3079,37 +3374,11 @@ function irodoriResultLabel(){
   if(setupScope === 'irodori2') return 'Irodori Shokyu 2';
   return 'Irodori (Shokyu 1 & 2)';
 }
-const JFT_SCOPE_LABELS = {
-  jft1:'Paket 1', jft2:'Paket 2', jft3:'Paket 3',
-  jft4:'Paket 4', jft5:'Paket 5', jft6:'Paket 6', jft7:'Paket 7',
-  jft8:'Paket 8', jft9:'Paket 9'
-};
-function jftResultLabel(){
-  return JFT_SCOPE_LABELS[setupScope] || 'Paket 1';
-}
 function poolFor(scope, typeMode){
   if(typeMode === 'irodori'){
     if(scope === 'irodori1') return IRODORI_SHOKYU1_TEST;
     if(scope === 'irodori2') return IRODORI_SHOKYU2_TEST;
     return IRODORI_SHOKYU1_TEST.concat(IRODORI_SHOKYU2_TEST);
-  }
-  if(typeMode === 'jft'){
-    function jftPoolFor(s){
-      // typeof di sini AMAN dipakai walau variabelnya belum/tidak pernah dideklarasikan
-      // sama sekali (mis. jft-soal.js versi lama yang belum punya JFT_SOAL_6/7) —
-      // tidak akan melempar ReferenceError, cukup mengembalikan array kosong.
-      if(s === 'jft1') return typeof JFT_SOAL_1 !== 'undefined' ? JFT_SOAL_1 : [];
-      if(s === 'jft2') return typeof JFT_SOAL_2 !== 'undefined' ? JFT_SOAL_2 : [];
-      if(s === 'jft3') return typeof JFT_SOAL_3 !== 'undefined' ? JFT_SOAL_3 : [];
-      if(s === 'jft4') return typeof JFT_SOAL_4 !== 'undefined' ? JFT_SOAL_4 : [];
-      if(s === 'jft5') return typeof JFT_SOAL_5 !== 'undefined' ? JFT_SOAL_5 : [];
-      if(s === 'jft6') return typeof JFT_SOAL_6 !== 'undefined' ? JFT_SOAL_6 : [];
-      if(s === 'jft7') return typeof JFT_SOAL_7 !== 'undefined' ? JFT_SOAL_7 : [];
-      if(s === 'jft8') return typeof JFT_SOAL_8 !== 'undefined' ? JFT_SOAL_8 : [];
-      if(s === 'jft9') return typeof JFT_SOAL_9 !== 'undefined' ? JFT_SOAL_9 : [];
-      return [];
-    }
-    return jftPoolFor(scope);
   }
   const src = typeMode === 'bunpo' ? PATTERNS : (typeMode === 'dokkai' ? DOKKAI : (typeMode === 'jlpttest' ? JLPT_TEST : VOCAB));
   return src.filter(p=>matchesBook(p, scope));
@@ -3252,22 +3521,6 @@ function makeQuestionForJLPT(item, rng){
   };
 }
 
-/* Khusus mode "Tryout JFT": SATU SET UTUH, urutan soal & urutan pilihan jawaban
-   TIDAK diacak sama sekali — persis seperti lembar kerja aslinya (a/b/c/d tetap
-   di posisi yang sama). Ini beda dari makeQuestionForJLPT di atas yang mengacak
-   urutan pilihan tiap sesi. */
-function makeQuestionForJFT(item){
-  const plainText = item.qText.replace(/<[^>]+>/g,'');
-  const correct = { jp: plainText, meaning_id: `Jawaban: ${item.correctAns}`, level: item.level };
-  return {
-    type: 'jlpt_mc',
-    correct,
-    qText: item.section ? `<span style="font-size:11px;color:var(--sub);font-weight:700;letter-spacing:.5px;">[${item.section}]</span><br>${item.qText}` : item.qText,
-    correctAns: item.correctAns,
-    options: item.options.slice() // urutan asli, tidak di-shuffle
-  };
-}
-
 /* Bangun soal-soal Dokkai dari 1 "correct" (= 1 bacaan/passage).
    Berbeda dari pola/kosakata, 1 bacaan bisa menghasilkan BEBERAPA soal
    beruntun (mis. bacaan cloze punya soal ア/イ/ウ). Semua soal itu tetap
@@ -3295,11 +3548,6 @@ function makeQuestionsForDokkai(passage, rng){
 }
 
 function buildQuestions(scope, count, typeMode){
-  // Tryout JFT: SELALU seluruh paket, urutan ASLI, tidak pernah diacak/dipotong,
-  // berapa pun "count" yang sedang aktif di layar setup (diabaikan sepenuhnya).
-  if(typeMode === 'jft'){
-    return poolFor(scope, typeMode).map(item => makeQuestionForJFT(item));
-  }
   const pool = poolFor(scope, typeMode);
   if(!pool.length) return [];
   const wide = typeMode === 'bunpo' ? PATTERNS : VOCAB;
@@ -3396,11 +3644,6 @@ function unlockNextLevelIfPassed(packetIndexJustPlayed, accuracyPercent){
 }
 
 function buildQuestionsForPacket(scope, count, typeMode, packetIndex){
-  // Tryout JFT tidak punya sistem paket/level berjenjang — kalau mode Ujian
-  // kebetulan aktif bareng tipe ini, tetap kembalikan 1 set utuh yang sama.
-  if(typeMode === 'jft'){
-    return poolFor(scope, typeMode).map(item => makeQuestionForJFT(item));
-  }
   const plan = buildPacketPlan(scope, count, typeMode);
   const items = plan.packets[packetIndex] || [];
   const pool = poolFor(scope, typeMode);
@@ -3448,7 +3691,6 @@ function renderStart(){
             <button data-v="kotoba" class="active"><span class="opt-icon">🔤</span><span class="opt-label">Kosakata &amp; Kanji</span></button>
             <button data-v="dokkai"><span class="opt-icon">📖</span><span class="opt-label">Dokkai<small>Bacaan</small></span></button>
             <button data-v="jlpttest"><span class="opt-icon">📝</span><span class="opt-label">Tes Kosakata<small>JLPT</small></span></button>
-            <button data-v="jft"><span class="opt-icon">🏆</span><span class="opt-label">Tryout JFT<small>Paket Lengkap</small></span></button>
             <button data-v="irodori"><span class="opt-icon">🈴</span><span class="opt-label">Irodori<small>Shokyu 1 / 2</small></span></button>
             <button data-v="listening"><span class="opt-icon">🎧</span><span class="opt-label">Dengar &amp; Tebak</span></button>
           </div>
@@ -3465,15 +3707,6 @@ function renderStart(){
             <button data-v="n1" class="lvl-scope-btn">N1</button>
             <button data-v="irodori1" class="irodori-scope-btn" style="display:none;">Irodori Shokyu 1</button>
             <button data-v="irodori2" class="irodori-scope-btn" style="display:none;">Irodori Shokyu 2</button>
-            <button data-v="jft1" class="jft-scope-btn" style="display:none;">Paket 1</button>
-            <button data-v="jft2" class="jft-scope-btn" style="display:none;">Paket 2</button>
-            <button data-v="jft3" class="jft-scope-btn" style="display:none;">Paket 3</button>
-            <button data-v="jft4" class="jft-scope-btn" style="display:none;">Paket 4</button>
-            <button data-v="jft5" class="jft-scope-btn" style="display:none;">Paket 5</button>
-            <button data-v="jft6" class="jft-scope-btn" style="display:none;">Paket 6</button>
-            <button data-v="jft7" class="jft-scope-btn" style="display:none;">Paket 7</button>
-            <button data-v="jft8" class="jft-scope-btn" style="display:none;">Paket 8</button>
-            <button data-v="jft9" class="jft-scope-btn" style="display:none;">Paket 9</button>
           </div>
         </div>
         <div class="setup-box" id="countBox">
@@ -3509,41 +3742,24 @@ function renderStart(){
       const vpLink = $("voicePickerLink");
       if(vpLink) vpLink.style.display = (setupType === 'listening') ? '' : 'none';
       // Irodori pakai cakupan "Shokyu 1/Shokyu 2" sendiri, bukan level N5-N1.
-      // Tryout JFT juga pakai cakupan sendiri: "Paket 1" s/d "Paket 7".
       const scopeBox = $("scopeBox");
       if(setupType === 'irodori'){
         document.querySelectorAll(".lvl-scope-btn").forEach(x=> x.style.display = 'none');
         document.querySelectorAll(".irodori-scope-btn").forEach(x=> x.style.display = '');
-        document.querySelectorAll(".jft-scope-btn").forEach(x=> x.style.display = 'none');
         // default ke Shokyu 1 kalau scope sekarang bukan salah satu dari keduanya
         if(setupScope !== 'irodori1' && setupScope !== 'irodori2'){
           setupScope = 'irodori1';
           document.querySelectorAll("#scopeRow button").forEach(x=>x.classList.toggle("active", x.dataset.v==='irodori1'));
         }
         if(scopeBox) scopeBox.style.display = '';
-      } else if(setupType === 'jft'){
-        document.querySelectorAll(".lvl-scope-btn").forEach(x=> x.style.display = 'none');
-        document.querySelectorAll(".irodori-scope-btn").forEach(x=> x.style.display = 'none');
-        document.querySelectorAll(".jft-scope-btn").forEach(x=> x.style.display = '');
-        // default ke Paket 1 kalau scope sekarang bukan salah satu paket JFT
-        if(!setupScope.startsWith('jft')){
-          setupScope = 'jft1';
-          document.querySelectorAll("#scopeRow button").forEach(x=>x.classList.toggle("active", x.dataset.v==='jft1'));
-        }
-        if(scopeBox) scopeBox.style.display = '';
-        // Tryout JFT selalu 1 set utuh, tidak ada pilihan jumlah soal / mode ujian berjenjang.
-        $("countBox") && ($("countBox").style.display = 'none');
-        $("packetBox") && ($("packetBox").style.display = 'none');
       } else {
         document.querySelectorAll(".lvl-scope-btn").forEach(x=> x.style.display = '');
         document.querySelectorAll(".irodori-scope-btn").forEach(x=> x.style.display = 'none');
-        document.querySelectorAll(".jft-scope-btn").forEach(x=> x.style.display = 'none');
-        if(setupScope === 'irodori1' || setupScope === 'irodori2' || setupScope.startsWith('jft')){
+        if(setupScope === 'irodori1' || setupScope === 'irodori2'){
           setupScope = 'all';
           document.querySelectorAll("#scopeRow button").forEach(x=>x.classList.toggle("active", x.dataset.v==='all'));
         }
         if(scopeBox) scopeBox.style.display = '';
-        toggleSetupBoxesForMode();
       }
       updateCountHint();
     });
@@ -3590,11 +3806,6 @@ function toggleSetupBoxesForMode(){
     $("packetBox") && ($("packetBox").style.display = "none");
   } else {
     countBox.style.display = "";
-  }
-  // Tryout JFT: 1 set utuh, "jumlah soal" tidak relevan — sembunyikan apa pun mode-nya.
-  if(setupType === 'jft'){
-    countBox.style.display = "none";
-    $("packetBox") && ($("packetBox").style.display = "none");
   }
   // Trivia punya kategori & jumlah soal sendiri (di layar renderTriviaStart),
   // tidak pakai Jenis Kuis / Cakupan Level / Jumlah Soal bawaan sama sekali.
@@ -3647,7 +3858,7 @@ function renderCountRow(){
 function renderPacketRow(){
   const box = $("packetBox");
   if(!box) return;
-  if(setupMode !== "ujian" || setupType === "jft"){ box.style.display = "none"; return; }
+  if(setupMode !== "ujian"){ box.style.display = "none"; return; }
   box.style.display = "";
   const plan = buildPacketPlan(setupScope, setupCount, setupType);
   const unlockedCount = Math.min(getUnlockedLevelCount(), plan.numPackets);
@@ -3801,17 +4012,6 @@ function startMemoryMatch(){
 
 function renderMemoryMatch(){
   document.body.classList.add('quiz-active'); // sembunyikan header selama bermain aktif
-  // Kartu JP (kanji/kosakata pendek) vs kartu arti (bisa berupa definisi panjang
-  // dalam bahasa Inggris/Indonesia) butuh ukuran font berbeda supaya teks yang
-  // panjang tidak terlihat sesak/berantakan di kartu kotak kecil yang sama.
-  const memFontSize = (text, isJp)=>{
-    const len = (text||'').length;
-    if(isJp) return len <= 6 ? 17 : (len <= 12 ? 14 : 12);
-    if(len <= 10) return 13;
-    if(len <= 25) return 11.5;
-    if(len <= 45) return 10;
-    return 8.5;
-  };
   $("gameArea").innerHTML = `
     <div class="quiz-avatar" id="quizAvatar">${currentAvatarThumb(42)}</div>
     <div class="mem-hud">
@@ -3825,7 +4025,7 @@ function renderMemoryMatch(){
         <div class="mem-card ${c.side==='jp'?'jp-card':''} ${c.matched?'matched':''} ${gMem.flipped.includes(i)?'flipped':''}" data-i="${i}">
           <div class="mem-card-inner">
             <div class="mem-face back">?</div>
-            <div class="mem-face front" style="font-size:${memFontSize(c.text, c.side==='jp')}px;">${c.text}</div>
+            <div class="mem-face front">${c.text}</div>
           </div>
         </div>
       `).join("")}
@@ -4159,7 +4359,7 @@ function renderQuestionActual(){
   gState.locked = false;
   const isBoss = gState.qi === gState.bossIndex;
 
-  let typeLabel = setupType === "bunpo" ? "Pola Kalimat" : (setupType === "dokkai" ? "Dokkai (Bacaan)" : (setupType === "jlpttest" ? "Tes Kosakata (JLPT)" : (setupType === "irodori" ? irodoriResultLabel() : (setupType === "jft" ? jftResultLabel() : (setupType === "listening" ? "🎧 Dengar & Tebak" : "Kosakata & Kanji")))));
+  let typeLabel = setupType === "bunpo" ? "Pola Kalimat" : (setupType === "dokkai" ? "Dokkai (Bacaan)" : (setupType === "jlpttest" ? "Tes Kosakata (JLPT)" : (setupType === "irodori" ? irodoriResultLabel() : (setupType === "listening" ? "🎧 Dengar & Tebak" : "Kosakata & Kanji"))));
   let paketTag = gState.paketLabel ? ` &middot; ${gState.paketLabel}` : "";
 
   const bodyHtml = q.type === 'susun_kalimat' ? `
@@ -4528,7 +4728,7 @@ function renderResult(){
   const grade = gradeFor(acc);
   const dateStr = gState.startedAt.toLocaleString("id-ID");
 
-  const materiLabel = setupType === 'bunpo' ? 'Pola Kalimat' : (setupType === 'dokkai' ? 'Dokkai (Bacaan)' : (setupType === 'jlpttest' ? 'Tes Kosakata (JLPT)' : (setupType === 'irodori' ? irodoriResultLabel() : (setupType === 'jft' ? jftResultLabel() : (setupType === 'listening' ? '🎧 Dengar & Tebak' : 'Kosakata & Kanji')))));
+  const materiLabel = setupType === 'bunpo' ? 'Pola Kalimat' : (setupType === 'dokkai' ? 'Dokkai (Bacaan)' : (setupType === 'jlpttest' ? 'Tes Kosakata (JLPT)' : (setupType === 'irodori' ? irodoriResultLabel() : (setupType === 'listening' ? '🎧 Dengar & Tebak' : 'Kosakata & Kanji'))));
 
   let justUnlocked = false;
   if(setupMode === "ujian"){
@@ -4786,7 +4986,7 @@ function renderResultCardToImage(opts){
 /* Dipanggil dari tombol "Unduh Kartu Hasil" tepat setelah kuis selesai —
    data diambil dari gState/setupType yang masih "hidup" di sesi ini. */
 function downloadResultCard(grade, acc, total, dateStr){
-  const materiLabel = setupType === "bunpo" ? "Pola Kalimat" : (setupType === "dokkai" ? "Dokkai (Bacaan)" : (setupType === "jlpttest" ? "Tes Kosakata (JLPT)" : (setupType === "irodori" ? irodoriResultLabel() : (setupType === "jft" ? jftResultLabel() : "Kosakata & Kanji"))));
+  const materiLabel = setupType === "bunpo" ? "Pola Kalimat" : (setupType === "dokkai" ? "Dokkai (Bacaan)" : (setupType === "jlpttest" ? "Tes Kosakata (JLPT)" : (setupType === "irodori" ? irodoriResultLabel() : "Kosakata & Kanji")));
   renderResultCardToImage({
     materiLabel,
     paketLabel: gState.paketLabel || "-",
@@ -4843,15 +5043,7 @@ function renderHistory() {
   const listEl = $("historyList");
   const saved = localStorage.getItem("nafis_history");
   if (!saved || JSON.parse(saved).length === 0) {
-    listEl.innerHTML = `
-      <div style="text-align:center;color:var(--sub);padding:30px 10px;">
-        <div style="font-size:40px;margin-bottom:10px;">📖</div>
-        <div style="font-weight:700;color:var(--ink);margin-bottom:4px;">Belum ada riwayat kuis</div>
-        <div style="font-size:12.5px;line-height:1.5;margin-bottom:16px;">Riwayat skor & progresmu bakal muncul di sini setelah kamu main kuis pertama.</div>
-        <button class="play-btn" id="historyPlayNowBtn" style="width:auto;padding:12px 22px;font-size:13px;">▶ Main Kuis Sekarang</button>
-      </div>`;
-    const btn = $("historyPlayNowBtn");
-    if(btn) btn.addEventListener("click", ()=>{ playSFX && playSFX('click'); showPage('game'); });
+    listEl.innerHTML = `<div style="text-align:center;color:var(--sub);padding:20px;">Belum ada riwayat kuis yang dimainkan.</div>`;
     return;
   }
   const list = JSON.parse(saved);
@@ -5194,5 +5386,223 @@ function initSeasonalEffects(){
 }
 initSeasonalEffects();
 </script>
+
+<script>
+/* ============================================================
+   RESTAURANT WORLD RPG v2
+   Contextual adventure: movement -> interaction -> response -> reward
+   ============================================================ */
+(function(){
+  const $rw = id => document.getElementById(id);
+  const STAGE_META = {
+    '店内': {icon:'🪑',label:'店内 / FLOOR',color:'cyan',hint:'Layani pelanggan dan arahkan ke tempat yang tepat.'},
+    '注文': {icon:'📝',label:'注文 / ORDER',color:'gold',hint:'Ambil pesanan dengan jumlah dan item yang tepat.'},
+    '料理': {icon:'🍜',label:'料理 / KITCHEN',color:'mint',hint:'Siapkan dan antarkan makanan dengan aman.'},
+    '会計': {icon:'💴',label:'会計 / CASHIER',color:'pink',hint:'Hitung total dan proses pembayaran.'},
+    '接客': {icon:'🗣️',label:'接客 / SERVICE',color:'red',hint:'Gunakan bahasa pelayanan yang sopan.'}
+  };
+  const ITEM_ICON={ラーメン:'🍜',水:'🥤',寿司:'🍣',餃子:'🥟',カレー:'🍛',お茶:'🍵'};
+  const baseRender = window.renderRestaurantMission;
+  window.rwRpg = { phase:'interact', stage:'', moving:false };
+
+  function movePlayer(target){
+    const pl=$rw('rwPlayer'); if(!pl)return;
+    const pos={
+      '店内':{left:'16%',bottom:'20%'},
+      '注文':{left:'66%',bottom:'21%'},
+      '料理':{left:'50%',bottom:'28%'},
+      '会計':{left:'72%',bottom:'16%'},
+      '接客':{left:'53%',bottom:'38%'}
+    }[target]||{left:'28%',bottom:'17%'};
+    pl.style.left=pos.left; pl.style.bottom=pos.bottom;
+    pl.classList.remove('rw-moving'); void pl.offsetWidth; pl.classList.add('rw-moving');
+  }
+  function stageVisual(stage){
+    const scene=$rw('rwScene'); if(!scene)return;
+    scene.dataset.stage=stage;
+    document.querySelectorAll('.rw-hotspot').forEach(x=>x.classList.remove('rw-target'));
+    const target=document.querySelector(`.rw-hotspot[data-target="${stage}"]`);
+    if(target)target.classList.add('rw-target');
+    movePlayer(stage);
+    const npc=$rw('rwNpc');
+    if(npc){ npc.classList.remove('rw-npc-enter'); void npc.offsetWidth; npc.classList.add('rw-npc-enter'); }
+  }
+  function setInteractionMessage(text,cls=''){
+    const f=$rw('rwFeedback'); if(!f)return; f.textContent=text; f.className='rw-feedback '+cls;
+  }
+  function disableAnswers(disabled){
+    document.querySelectorAll('#rwQuestion .rw-option').forEach(b=>{b.disabled=disabled;b.classList.toggle('rw-disabled',disabled)});
+  }
+  function updateStageHUD(m){
+    const meta=STAGE_META[m.stage]||{};
+    const title=$rw('rwRole'); if(title)title.textContent=meta.label||m.stage;
+    const speaker=$rw('rwSpeaker'); if(speaker)speaker.textContent=m.speaker;
+  }
+  function renderRPGMission(){
+    const m=RESTAURANT_MISSIONS[rwState.index]; if(!m)return;
+    rwState.locked=false; rwState.interacted=false; rwState.target=rwTargetForStage(m.stage);
+    rwRpg.phase='interact'; rwRpg.stage=m.stage;
+    $rw('rwMissionNo').textContent=rwState.index+1;
+    $rw('rwProgressFill').style.width=((rwState.index+1)/RESTAURANT_MISSIONS.length*100)+'%';
+    $rw('rwCoins').textContent=(getPlayerProfile().coins||0);
+    $rw('rwSpeakerIcon').textContent=m.icon; $rw('rwSpeaker').textContent=m.speaker;
+    $rw('rwRole').textContent=(STAGE_META[m.stage]||{}).label||m.stage;
+    $rw('rwText').textContent=m.text;
+    $rw('rwQuestion').innerHTML=m.options.map((x,i)=>`<button class="rw-option rw-disabled" type="button" disabled data-answer="${i}">${x}</button>`).join('');
+    document.querySelectorAll('#rwQuestion .rw-option').forEach(btn=>btn.onclick=()=>answerRPG(Number(btn.dataset.answer)));
+    document.querySelectorAll('.rw-actionbar button').forEach(b=>{b.classList.remove('active');b.onclick=()=>interactRPG(b.dataset.target)});
+    document.querySelectorAll('.rw-hotspot').forEach(b=>{b.onclick=()=>interactRPG(b.dataset.target);b.classList.remove('rw-target')});
+    stageVisual(m.stage);
+    setInteractionMessage(`🎯 ${STAGE_META[m.stage]?.hint||'Cari area yang benar.'}`);
+    for(let i=1;i<=5;i++)$rw('rwHeart'+i).style.opacity=i<=rwState.satisfaction?'1':'.18';
+    $rw('rwCombo').textContent=`COMBO ×${rwState.combo}`;
+    updateStageHUD(m);
+    renderRPGMissionExtra(m);
+  }
+  function renderRPGMissionExtra(m){
+    let old=$rw('rwMiniPanel'); if(old)old.remove();
+    const box=document.createElement('div'); box.id='rwMiniPanel'; box.className='rw-mini-panel';
+    const meta=STAGE_META[m.stage]||{};
+    let content='';
+    if(m.stage==='注文') content=`<span>📝 ORDER BOARD</span><b>ラーメン × ?　　水 × ?</b><small>Perhatikan jumlah sebelum mengirim pesanan.</small>`;
+    else if(m.stage==='料理') content=`<span>🍳 KITCHEN STATUS</span><b>🔥 厨房 READY</b><small>Ambil makanan dengan hati-hati dan perhatikan suhu.</small>`;
+    else if(m.stage==='会計') content=`<span>💴 CASH REGISTER</span><b id="rwRegisterTotal">TOTAL ¥ —</b><small>Hitung sebelum pelanggan membayar.</small>`;
+    else if(m.stage==='接客') content=`<span>❤️ CUSTOMER MOOD</span><b id="rwMoodText">お客様を大切に！</b><small>Gunakan 敬語 dan jangan membantah pelanggan.</small>`;
+    else content=`<span>🪑 FLOOR STATUS</span><b>2 TABLES / 1 CUSTOMER</b><small>Pelanggan menunggu arahan.</small>`;
+    box.innerHTML=content;
+    const dlg=$rw('rwDialogue'); if(dlg)dlg.parentNode.insertBefore(box,dlg);
+  }
+  function interactRPG(target){
+    if(rwState.locked)return;
+    const m=RESTAURANT_MISSIONS[rwState.index]; if(!m)return;
+    if(target!==rwState.target){
+      setInteractionMessage(`🔎 Salah area. Misi ini membutuhkan <b>${rwState.target}</b>.`,'bad');
+      return;
+    }
+    rwState.interacted=true; rwRpg.phase='answer';
+    movePlayer(target);
+    document.querySelectorAll('.rw-hotspot,.rw-actionbar button').forEach(b=>b.classList.toggle('active',b.dataset.target===target));
+    document.querySelectorAll('.rw-hotspot').forEach(b=>b.classList.remove('rw-target'));
+    disableAnswers(false);
+    setInteractionMessage(`🎮 ${STAGE_META[m.stage]?.icon||'✨'} Interaksi berhasil! Sekarang selesaikan situasinya.`,'good');
+    // Stage-specific micro animation
+    if(m.stage==='料理') kitchenBurst();
+    if(m.stage==='会計') cashierFlash();
+    if(m.stage==='注文') orderFlash();
+    if(m.stage==='接客') moodFlash();
+  }
+  function kitchenBurst(){
+    const s=$rw('rwScene'); if(!s)return;
+    const el=document.createElement('div'); el.className='rw-effect'; el.textContent='🔥 🍜 ✨'; s.appendChild(el); setTimeout(()=>el.remove(),900);
+  }
+  function cashierFlash(){
+    const el=$rw('rwRegisterTotal'); if(el){el.textContent='TOTAL ¥ ?';el.classList.add('rw-counting');setTimeout(()=>el.classList.remove('rw-counting'),650)}
+  }
+  function orderFlash(){
+    const el=$rw('rwMiniPanel'); if(el){el.classList.add('rw-panel-pop');setTimeout(()=>el.classList.remove('rw-panel-pop'),600)}
+  }
+  function moodFlash(){ const el=$rw('rwMoodText'); if(el){el.textContent='😐 → 🤔 → 😊';} }
+  function answerRPG(choice){
+    if(rwState.locked || !rwState.interacted)return;
+    rwState.locked=true;
+    const m=RESTAURANT_MISSIONS[rwState.index];
+    const buttons=[...document.querySelectorAll('#rwQuestion .rw-option')]; buttons.forEach(b=>b.disabled=true);
+    if(choice===m.answer){
+      buttons[choice]?.classList.add('correct'); rwState.combo++; rwState.satisfaction=Math.min(5,rwState.satisfaction+1);
+      setInteractionMessage(`✨ ${m.success}　+${m.reward} XP　+${m.coins} 🪙`,'good');
+      awardXPCoins(m.reward,m.coins); rewardBurst();
+      if(rwState.index===RESTAURANT_MISSIONS.length-1){
+        rwSaveProgress(); setTimeout(showRestaurantFinalReward,1000);
+      }else{
+        rwState.index++; rwSaveProgress(); setTimeout(renderRPGMission,1050);
+      }
+    }else{
+      buttons[choice]?.classList.add('wrong'); buttons[m.answer]?.classList.add('correct');
+      rwState.combo=0; rwState.satisfaction=Math.max(1,rwState.satisfaction-1);
+      setInteractionMessage(`❌ Belum tepat. ${m.learn}`,'bad');
+      for(let i=1;i<=5;i++)$rw('rwHeart'+i).style.opacity=i<=rwState.satisfaction?'1':'.18';
+      $rw('rwCombo').textContent='COMBO ×0';
+      setTimeout(()=>{rwState.locked=false;rwState.interacted=false;rwRpg.phase='interact';disableAnswers(true);stageVisual(m.stage);setInteractionMessage(`🔁 Coba lagi. Cari area <b>${rwState.target}</b> lalu interaksi.`)},1100);
+    }
+  }
+  function rewardBurst(){
+    const s=$rw('rwScene'); if(!s)return;
+    for(let i=0;i<9;i++){const e=document.createElement('i');e.className='rw-particle';e.textContent=['✨','⭐','🪙','🍜'][i%4];e.style.setProperty('--dx',(Math.random()*180-90)+'px');e.style.setProperty('--dy',(-Math.random()*130-30)+'px');s.appendChild(e);setTimeout(()=>e.remove(),900)}
+  }
+  function openRPG(){
+    document.querySelectorAll('.dashboard-layout > .panel').forEach(p=>p.classList.remove('active'));
+    $rw('panel-restaurant-world').classList.add('active');
+    startBGM();
+    const saved=rwGetProgress(); rwState.index=Math.min(Number(saved.cleared||0),RESTAURANT_MISSIONS.length-1); rwState.combo=0; rwState.satisfaction=5; rwState.locked=false; rwState.interacted=false;
+    renderRPGMission();
+  }
+  window.openRestaurantWorld=openRPG;
+  window.renderRestaurantMission=renderRPGMission;
+  window.activateRestaurantTarget=interactRPG;
+  window.answerRestaurant=answerRPG;
+})();
+</script>
+
 </body>
 </html>
+<style id="harvest-moon-final-texture">
+/* =========================================================
+   KOTODAMA HARVEST VILLAGE — HAND PAINTED FINAL SKIN
+   Single-file, no external image dependency.
+   ========================================================= */
+:root{--hm-wood:#7a4a26;--hm-wood2:#b87338;--hm-paper:#fff4d6;--hm-green:#60944e;--hm-green2:#3f733f;--hm-gold:#e2a43c;--hm-brown:#4d301c}
+*{box-sizing:border-box}
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.20;background-image:radial-gradient(rgba(69,44,22,.28) .7px,transparent .8px),radial-gradient(rgba(255,255,255,.38) .7px,transparent .8px);background-size:11px 13px,17px 19px;background-position:0 0,4px 7px;mix-blend-mode:multiply}
+/* hand-painted frame for major cards */
+.panel,.card,.player-bar,.missions-card,.qcard,.start-screen,.page-header,.world-page-header,.rw-header,.rw-dialogue,.shop-pane{
+  outline:1px solid rgba(74,44,20,.28);outline-offset:-6px;
+}
+.card:before,.panel:before,.player-bar:before,.missions-card:before,.qcard:before,.start-screen:before,.page-header:before,.world-page-header:before,.rw-header:before,.rw-dialogue:before,.shop-pane:before{
+ content:"";position:absolute;inset:7px;border:1px dashed rgba(113,72,34,.22);border-radius:inherit;pointer-events:none;z-index:0
+}
+/* buttons feel carved from wood */
+.dash-menu-btn,.play-btn,.continue-btn,.insert-coin,.login-btn,.world-location,.rw-option,.rw-actionbar button,.back-btn,.navbtn,.tab-btn,.shop-item{
+ position:relative;overflow:hidden;text-shadow:1px 1px 0 rgba(65,35,15,.45)!important;
+}
+.dash-menu-btn:after,.play-btn:after,.continue-btn:after,.insert-coin:after,.login-btn:after,.world-location:after,.rw-option:after,.rw-actionbar button:after,.back-btn:after,.navbtn:after,.tab-btn:after,.shop-item:after{
+ content:"";position:absolute;left:-15%;right:-15%;top:15%;height:22%;background:rgba(255,238,191,.18);transform:rotate(-3deg);filter:blur(1px);pointer-events:none
+}
+/* FARM HOME — replace flat emoji scene with a layered painted landscape */
+#panel-dashboard:before{
+ content:""!important;height:455px!important;line-height:normal!important;font-size:0!important;
+ background-image:
+   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 455'%3E%3Cdefs%3E%3ClinearGradient id='sky' x2='0' y2='1'%3E%3Cstop stop-color='%238dd2ef'/%3E%3Cstop offset='1' stop-color='%23e7f3cf'/%3E%3C/linearGradient%3E%3ClinearGradient id='grass' x2='0' y2='1'%3E%3Cstop stop-color='%2395c965'/%3E%3Cstop offset='1' stop-color='%235f9648'/%3E%3C/linearGradient%3E%3ClinearGradient id='roof' x2='0' y2='1'%3E%3Cstop stop-color='%236e88a0'/%3E%3Cstop offset='1' stop-color='%233f5264'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1400' height='455' fill='url(%23sky)'/%3E%3Ccircle cx='1190' cy='75' r='35' fill='%23ffe18a' opacity='.85'/%3E%3Cpath d='M0 245 L150 125 270 225 390 100 530 235 670 120 820 240 960 105 1100 235 1240 125 1400 230 V455 H0Z' fill='%2376a66b' opacity='.9'/%3E%3Cpath d='M0 270 L170 175 305 260 455 145 590 265 760 160 900 275 1060 155 1210 260 1330 170 1400 220 V455 H0Z' fill='%235e8d54'/%3E%3Cpath d='M0 300 Q240 245 470 300 T930 290 T1400 300 V455 H0Z' fill='url(%23grass)'/%3E%3Cpath d='M650 455 C620 395 610 350 640 310 C660 280 700 275 725 300 C755 335 755 390 785 455Z' fill='%23c7a26e'/%3E%3Cpath d='M635 455 C650 392 645 355 670 320' fill='none' stroke='%23e0c28d' stroke-width='18' opacity='.75'/%3E%3C!-- house --%3E%3Crect x='510' y='175' width='255' height='140' rx='5' fill='%23c79257' stroke='%234c3321' stroke-width='6'/%3E%3Cpath d='M475 190 L635 80 800 190Z' fill='url(%23roof)' stroke='%2343322a' stroke-width='7'/%3E%3Cpath d='M515 170 L635 95 760 170' fill='none' stroke='%239bb3c2' stroke-width='7' opacity='.65'/%3E%3Crect x='605' y='235' width='58' height='80' fill='%235c3b27'/%3E%3Crect x='535' y='220' width='45' height='42' fill='%23bce3dc' stroke='%23523a28' stroke-width='5'/%3E%3Crect x='690' y='220' width='45' height='42' fill='%23bce3dc' stroke='%23523a28' stroke-width='5'/%3E%3C!-- barn --%3E%3Crect x='875' y='215' width='145' height='105' fill='%23a9563e' stroke='%23522e20' stroke-width='6'/%3E%3Cpath d='M850 225 L947 145 1048 225Z' fill='%235e4c49' stroke='%23462b25' stroke-width='6'/%3E%3Cpath d='M948 175V315' stroke='%23f2c07d' stroke-width='8' opacity='.7'/%3E%3C!-- windmill --%3E%3Cpath d='M1080 275 L1100 125 1120 275Z' fill='%23e4c890' stroke='%23553b27' stroke-width='5'/%3E%3Ccircle cx='1110' cy='135' r='14' fill='%235b3c25'/%3E%3Cpath d='M1110 135 L1045 75 M1110 135 L1175 72 M1110 135 L1182 145 M1110 135 L1052 192' stroke='%23ead7b0' stroke-width='13' stroke-linecap='round'/%3E%3C!-- trees --%3E%3Cg stroke='%23553a23' stroke-width='5'%3E%3Crect x='150' y='220' width='25' height='100' fill='%23734b2d'/%3E%3Ccircle cx='165' cy='185' r='62' fill='%235f934f'/%3E%3Ccircle cx='125' cy='205' r='43' fill='%2374a85b'/%3E%3Ccircle cx='205' cy='210' r='45' fill='%234e8548'/%3E%3Crect x='1220' y='220' width='28' height='105' fill='%23734b2d'/%3E%3Ccircle cx='1235' cy='180' r='65' fill='%235f934f'/%3E%3Ccircle cx='1195' cy='205' r='43' fill='%2374a85b'/%3E%3Ccircle cx='1275' cy='210' r='46' fill='%234e8548'/%3E%3C/g%3E%3C!-- fence --%3E%3Cg stroke='%23764c28' stroke-width='7'%3E%3Cpath d='M0 350 H510 M790 350 H1400'/%3E%3Cpath d='M60 330V380 M155 330V380 M250 330V380 M345 330V380 M440 330V380 M875 330V380 M970 330V380 M1065 330V380 M1160 330V380 M1255 330V380 M1350 330V380'/%3E%3C/g%3E%3C!-- flowers --%3E%3Cg fill='%23f0a6bd'%3E%3Ccircle cx='85' cy='330' r='8'/%3E%3Ccircle cx='100' cy='337' r='8'/%3E%3Ccircle cx='1120' cy='345' r='8'/%3E%3Ccircle cx='1140' cy='338' r='8'/%3E%3C/g%3E%3C/svg%3E")!important;
+ background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;
+ border:5px solid #70451f!important;box-shadow:0 8px 0 #56351d,0 20px 35px rgba(52,34,17,.25)!important;overflow:hidden
+}
+#panel-dashboard:after{content:"KOTODAMA 日本語の村"!important;top:30px!important;left:38px!important;font-size:25px!important;padding:11px 22px!important;border-radius:8px 12px 10px 12px!important;transform:rotate(-2deg)!important}
+/* floating decorative leaves */
+#panel-dashboard{position:relative}
+#panel-dashboard .player-bar{position:relative;z-index:4}
+#panel-dashboard .missions-card{position:relative;z-index:4}
+/* menu buttons like wooden signboards */
+.dash-menu-btn{border-radius:11px!important;min-height:108px!important;border-width:4px!important;box-shadow:0 6px 0 #5a351c,0 11px 18px rgba(61,38,18,.20),inset 0 2px rgba(255,238,194,.4)!important;transform:rotate(-.4deg)}
+.dash-menu-btn:nth-child(even){transform:rotate(.5deg)}
+.dash-menu-btn:hover{transform:translateY(-4px) rotate(0deg)!important}
+/* wooden page headers with corner pegs */
+.page-header,.world-page-header,.rw-header{background-image:repeating-linear-gradient(5deg,rgba(69,38,16,.11) 0 2px,transparent 2px 15px),linear-gradient(#b8783d,#754622)!important;box-shadow:0 6px 0 #4d2e19,0 12px 20px rgba(58,35,18,.17)!important;color:#fff5da!important}
+.page-header:after,.world-page-header:after,.rw-header:after{content:"✦     ✦";position:absolute;right:18px;top:7px;color:#f8d17e;font-size:14px;opacity:.65}
+/* paper is slightly uneven */
+.qcard,.start-screen,.jp-card,.trivia-fact-card,.rw-dialogue,.player-bar,.missions-card,.shop-pane{background-image:radial-gradient(circle at 8% 16%,rgba(117,73,31,.07) 0 1px,transparent 2px),radial-gradient(circle at 92% 82%,rgba(117,73,31,.06) 0 1px,transparent 2px),repeating-linear-gradient(0deg,rgba(117,73,31,.025) 0 1px,transparent 1px 4px),linear-gradient(#fff8e6,#ead2a6)!important}
+/* profile card */
+.player-bar{background-image:linear-gradient(90deg,rgba(112,160,78,.14),transparent 42%),repeating-linear-gradient(0deg,rgba(117,73,31,.025) 0 1px,transparent 1px 4px),linear-gradient(#fff7df,#ead0a0)!important}
+/* world map: terrain layers and hand-painted roads */
+.world-map-shell{background-image:radial-gradient(circle at 72% 19%,rgba(255,239,150,.65) 0 25px,transparent 27px),linear-gradient(180deg,#98d7ec 0 35%,#9bc978 35% 57%,#659d50 57% 73%,#c6a46e 73% 100%)!important}
+.world-map-shell:after{content:"🌸  🌾🌾  🌳      🏡      🌳  🌾🌾  🌸";position:absolute;left:0;right:0;bottom:16%;font-size:clamp(24px,4vw,56px);letter-spacing:.12em;text-align:center;opacity:.78;pointer-events:none}
+/* restaurant richer wood */
+.rw-scene{box-shadow:inset 0 0 0 5px rgba(74,43,21,.16),inset 0 -45px 0 rgba(83,48,22,.12)!important}
+.rw-neon-sign{font-family:"Fraunces","Zen Maru Gothic",sans-serif!important;border-radius:8px!important;transform:rotate(-1deg);box-shadow:0 5px 0 #68401f,0 8px 15px rgba(52,30,15,.18),inset 0 2px rgba(255,255,255,.6)!important}
+/* selectable answers look like paper tags */
+.opt-row button,.rw-option{background-image:repeating-linear-gradient(0deg,rgba(102,64,28,.035) 0 1px,transparent 1px 5px),linear-gradient(#fffaf0,#f0dcb7)!important;box-shadow:0 4px 0 #8a5a2d,0 4px 9px rgba(75,45,20,.10)!important}
+.opt-row button:hover,.rw-option:hover{transform:translateY(-2px);filter:brightness(1.02)}
+/* seasonal cards */
+.season-card,.season-item,.season-btn{border:4px solid #8c5b2d!important;border-radius:12px!important;box-shadow:0 5px 0 #5e381d!important;overflow:hidden!important}
+/* tiny grass strokes around bottom */
+.wrap:after{content:"⌁ ︵⌁ ︵⌁ ︵⌁ ︵⌁ ︵⌁ ︵⌁";position:absolute;left:0;right:0;bottom:0;height:28px;background:#557f43;color:#d7e9a7;text-align:center;font-size:25px;line-height:30px;z-index:50;pointer-events:none;opacity:.9}
+@media(max-width:700px){#panel-dashboard:before{height:330px!important;background-position:58% center!important}#panel-dashboard:after{top:20px!important;left:20px!important;font-size:16px!important}.dash-menu-btn{min-height:92px!important}.wrap{padding-bottom:58px!important}}
+</style>
