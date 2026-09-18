@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Nafis Sensei 日本語の里 — Penilaian</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Zen+Maru+Gothic:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=M+PLUS+Rounded+1c:wght@400;500;700;800;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
    :root {
     --bg: #0A0A14; 
@@ -244,7 +244,7 @@
 
   .farm-menu {
     position: relative; z-index: 8; width:min(720px,94vw); margin-top:14px;
-    display:grid; grid-template-columns:repeat(4,1fr); gap:9px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:9px;
   }
   .farm-menu-btn {
     min-height:58px; border:3px solid #765237; border-radius:14px;
@@ -291,7 +291,7 @@
     .farm-character { left:4%; font-size:55px; }
     .farm-dog { right:3%; font-size:42px; }
     .windmill { right:4%; font-size:48px; bottom:38%; }
-    .farm-menu { grid-template-columns:repeat(2,1fr); gap:7px; margin-top:10px; }
+    .farm-menu { grid-template-columns:repeat(3,1fr); gap:7px; margin-top:10px; }
     .farm-menu-btn { min-height:53px; }
     .farm-menu-btn span { font-size:21px; }
     .harvest-start { margin-top:9px; padding:12px 16px; font-size:14px; }
@@ -2082,6 +2082,711 @@
     .omikuji-slip .os-lucky { font-size: 9.5px; padding: 6px 5px; }
   }
 
+
+  /* ============================================================
+     HARVEST MOON UI SYSTEM — FINAL ACCESSIBILITY / CONSISTENCY PASS
+     Tujuan:
+     1. seluruh layar setelah landing memakai satu bahasa visual;
+     2. teks Jepang/Indonesia selalu kontras terhadap kertas;
+     3. tidak ada neon cyan/magenta/ungu yang tersisa pada UI utama;
+     4. tombol, select, kartu, quiz, Irodori, album, shop, result,
+        leaderboard, history dan modal memakai palet yang sama.
+     ============================================================ */
+
+  :root{
+    --hm-cream:#fff8e7;
+    --hm-paper:#f7edcf;
+    --hm-paper-2:#efe0ba;
+    --hm-paper-3:#e5d1a5;
+    --hm-wood:#765236;
+    --hm-wood-dark:#563b27;
+    --hm-wood-light:#9d744c;
+    --hm-green:#648e4f;
+    --hm-green-dark:#486c3a;
+    --hm-green-soft:#dcebcf;
+    --hm-red:#a9574e;
+    --hm-red-soft:#f1d8d2;
+    --hm-gold:#b77c28;
+    --hm-gold-soft:#f2dfad;
+    --hm-ink:#493526;
+    --hm-ink-2:#654d38;
+    --hm-muted:#77644f;
+    --hm-line:#ad8b60;
+    --hm-shadow:rgba(72,50,31,.20);
+    --ink:var(--hm-ink);
+    --sub:var(--hm-muted);
+    --line:rgba(118,82,48,.28);
+    --cyan:var(--hm-green);
+    --mint:#6e9957;
+    --gold:var(--hm-gold);
+    --sakura:#c8787e;
+    --sakura-dk:#a8585f;
+    --red:var(--hm-red);
+    --n5:#5f8d52;
+    --n4:#b5792e;
+    --n3:#758394;
+    --n2:#b56f4c;
+    --n1:#9c5662;
+  }
+
+  html,body{min-height:100%}
+  body{
+    font-family:"M PLUS Rounded 1c","Zen Maru Gothic",sans-serif !important;
+    color:var(--hm-ink) !important;
+    background:
+      linear-gradient(rgba(236,244,218,.12),rgba(214,226,195,.22)),
+      var(--farm-village-bg) center/cover fixed !important;
+  }
+  body::before{
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(65,78,45,.12)) !important;
+  }
+
+  /* Semua isi aplikasi: default text gelap di atas kertas. */
+  .wrap,
+  .wrap button,
+  .wrap input,
+  .wrap select,
+  .wrap textarea{
+    font-family:"M PLUS Rounded 1c","Zen Maru Gothic",sans-serif !important;
+  }
+  .wrap{color:var(--hm-ink) !important}
+  .wrap p,.wrap span,.wrap label,.wrap small,.wrap div{ text-shadow:none; }
+
+  /* Header / player bar */
+  .brand,.whoami,.player-bar{
+    color:var(--hm-ink) !important;
+    background:linear-gradient(180deg,rgba(255,250,231,.98),rgba(235,219,181,.98)) !important;
+    border-color:var(--hm-wood-light) !important;
+    box-shadow:0 4px 0 var(--hm-wood-dark),0 10px 22px var(--hm-shadow),inset 0 1px rgba(255,255,255,.85) !important;
+  }
+  .brand h1,.brand span,.whoami,.whoami b,.player-bar *{
+    text-shadow:none !important;
+  }
+  .brand h1{font-family:"Fraunces","M PLUS Rounded 1c",sans-serif !important;color:var(--hm-wood-dark) !important}
+  .brand span{color:var(--hm-muted) !important}
+  .brand .stats .stat-chip{
+    background:var(--hm-green) !important;
+    color:#fffdf3 !important;
+    border-color:var(--hm-green-dark) !important;
+  }
+  .whoami b,.player-bar .pb-title{color:var(--hm-green-dark) !important}
+
+  /* Navigation */
+  .nav-tabs,.page-header{gap:8px}
+  .tab-btn,.page-header .back-btn,.navbtn{
+    background:linear-gradient(180deg,#fff9e9,#ead9b6) !important;
+    color:var(--hm-ink) !important;
+    border:2px solid var(--hm-wood-light) !important;
+    box-shadow:0 3px 0 var(--hm-wood-dark) !important;
+    text-shadow:none !important;
+  }
+  .tab-btn:hover,.page-header .back-btn:hover,.navbtn:hover{filter:brightness(1.025)}
+  .tab-btn.active{
+    background:linear-gradient(180deg,#8db66e,#628c4e) !important;
+    color:#fffdf2 !important;
+    border-color:var(--hm-green-dark) !important;
+    box-shadow:0 3px 0 #3f5e31 !important;
+  }
+  .page-header .page-title,.page-header .back-btn{color:var(--hm-ink) !important}
+
+  /* Kartu utama */
+  .card{
+    background:linear-gradient(180deg,rgba(255,251,235,.985),rgba(241,229,199,.985)) !important;
+    border:3px solid var(--hm-wood-light) !important;
+    box-shadow:0 5px 0 var(--hm-wood-dark),0 14px 28px var(--hm-shadow),inset 0 1px rgba(255,255,255,.9) !important;
+    color:var(--hm-ink) !important;
+    backdrop-filter:none !important;
+  }
+  .card h2,.card h3,.card h4,.col-title,.page-title{
+    color:var(--hm-wood-dark) !important;
+    text-shadow:0 1px #fff9e9 !important;
+  }
+
+  /* Login */
+  .login-wrap h2{color:var(--hm-wood-dark) !important}
+  .login-wrap p{color:var(--hm-muted) !important}
+  .field label{color:var(--hm-green-dark) !important}
+  .field input,.field select{
+    background:#fffdf3 !important;
+    color:var(--hm-ink) !important;
+    border:2px solid var(--hm-wood-light) !important;
+    box-shadow:inset 0 2px 3px rgba(80,55,33,.08) !important;
+  }
+  .field input::placeholder{color:#9a866d !important}
+  .field input:focus,.field select:focus{
+    border-color:var(--hm-green) !important;
+    box-shadow:0 0 0 3px rgba(100,142,79,.14) !important;
+  }
+  .login-btn{
+    background:linear-gradient(180deg,#9c6b43,#7b4f32) !important;
+    color:#fff9e9 !important;
+    border:2px solid #633f28 !important;
+    box-shadow:0 4px 0 #52351f !important;
+    text-shadow:0 1px rgba(55,35,20,.45) !important;
+  }
+
+  /* Dashboard */
+  .col-title{color:var(--hm-wood-dark) !important;border-bottom-color:#b99a6d !important}
+  .dash-menu-btn{
+    background:linear-gradient(180deg,#fff9e9,#e9d8b6) !important;
+    border:3px solid #92704b !important;
+    color:var(--hm-ink) !important;
+    box-shadow:0 5px 0 #65482f,0 10px 20px var(--hm-shadow),inset 0 1px rgba(255,255,255,.8) !important;
+  }
+  .dash-menu-btn .dmb-icon{
+    background:#dcebcf !important;
+    border:2px solid #8cab70 !important;
+    box-shadow:inset 0 -4px rgba(65,93,47,.10) !important;
+  }
+  .dash-menu-btn .dmb-text b{color:var(--hm-wood-dark) !important}
+  .dash-menu-btn .dmb-text small{color:var(--hm-muted) !important}
+  .dash-menu-btn.dash-game,.dash-menu-btn.dash-study,.dash-menu-btn.dash-history{border-color:#92704b !important}
+
+  /* Select materi — selalu gelap dan terbaca */
+  .modern-select-wrap label{color:var(--hm-green-dark) !important}
+  .modern-select{
+    background:#fffdf3 !important;
+    color:var(--hm-ink) !important;
+    border:2px solid #8d6946 !important;
+    text-shadow:none !important;
+  }
+  .modern-select option{background:#fffdf3 !important;color:var(--hm-ink) !important}
+
+  /* =========================================================
+     IRODORI / FLASHCARD — FIX KONTRAS UTAMA
+     ========================================================= */
+  #panel-study .flash,
+  #panel-study .flash.irodori-mode{
+    background:linear-gradient(180deg,#fffdf5,#f3e7cb) !important;
+    color:var(--hm-ink) !important;
+    border:2px solid #a17b52 !important;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),0 3px 0 rgba(85,58,34,.16) !important;
+  }
+  #panel-study .flash *{text-shadow:none !important}
+  #panel-study .flash .ir-bab-title{
+    color:#4d713c !important;
+    font-family:"Fraunces","M PLUS Rounded 1c",sans-serif !important;
+  }
+  #panel-study .flash .ir-section-label{
+    color:#8a5c28 !important;
+    background:#f1dfb7 !important;
+    border:1px solid #c9aa76 !important;
+    border-radius:8px;
+    padding:5px 8px;
+    display:inline-block;
+  }
+  #panel-study .flash .ir-list{gap:9px !important}
+  #panel-study .flash .ir-item,
+  #panel-study .flash .ir-pola-item{
+    background:#fffaf0 !important;
+    border:2px solid #c0a477 !important;
+    color:var(--hm-ink) !important;
+    box-shadow:0 2px 0 rgba(87,60,35,.10) !important;
+  }
+  #panel-study .flash .ir-jp,
+  #panel-study .flash .ir-pola-title,
+  #panel-study .flash .ir-pola-contoh-jp{
+    color:#3d2c20 !important;
+    font-family:"Zen Maru Gothic","M PLUS Rounded 1c",sans-serif !important;
+    text-shadow:none !important;
+  }
+  #panel-study .flash .ir-jp{font-size:16px !important}
+  #panel-study .flash .ir-baca,
+  #panel-study .flash .ir-pola-contoh-romaji{
+    color:#78624a !important;
+  }
+  #panel-study .flash .ir-arti,
+  #panel-study .flash .ir-pola-arti{
+    color:#527c43 !important;
+    font-weight:900 !important;
+  }
+  #panel-study .flash .ir-penjelasan,
+  #panel-study .flash .ir-pola-penjelasan{
+    color:#65513e !important;
+  }
+  #panel-study .flash .ir-contoh{
+    color:#6b7040 !important;
+    background:#eef3df !important;
+    border-radius:7px;
+    padding:4px 7px;
+  }
+  #panel-study .flash .ir-pola-contoh-box{
+    background:#f5ead2 !important;
+    border:1px dashed #b18d5e !important;
+  }
+  #panel-study .flash .ir-pola-contoh-id{
+    color:#5b7843 !important;
+    font-weight:800 !important;
+  }
+
+  /* Flashcard non-Irodori */
+  #panel-study .flash:not(.irodori-mode){
+    background:#fffdf4 !important;
+    color:var(--hm-ink) !important;
+  }
+  #panel-study .flash .pattern,
+  #panel-study .flash .example-jp{
+    color:#3b2b20 !important;
+    text-shadow:none !important;
+  }
+  #panel-study .flash.kotoba-mode .pattern{color:#3f7a3d !important}
+  #panel-study .flash .meaning{color:#4e7f43 !important}
+  #panel-study .flash .romaji-line,
+  #panel-study .flash .example-id,
+  #panel-study .flash .src{color:#6f5b45 !important}
+  #panel-study .flash .detail-box{
+    background:#f2e7ce !important;
+    color:#4e3a29 !important;
+    border-color:#b89a70 !important;
+  }
+  #panel-study .flash .example-box{
+    background:#fff8e8 !important;
+    border-left:4px solid #709d55 !important;
+    color:var(--hm-ink) !important;
+  }
+  #panel-study .flash .type-badge{
+    background:#e5efd9 !important;
+    color:#527444 !important;
+    border:1px solid #9eb585 !important;
+  }
+  #panel-study .flash .lvl{
+    text-shadow:none !important;
+    background:#eef3e5 !important;
+  }
+  #panel-study .flash .lvl.n5{color:#4f7c43 !important;border-color:#70985c !important}
+  #panel-study .flash .lvl.n4{color:#9a6423 !important;border-color:#b88945 !important}
+  #panel-study .flash .lvl.n3{color:#657083 !important;border-color:#8994a4 !important}
+  #panel-study .flash .lvl.n2{color:#9e5c47 !important;border-color:#bd7b62 !important}
+  #panel-study .flash .lvl.n1{color:#8c4f59 !important;border-color:#ae6a73 !important}
+
+  .study-nav .progress-text{color:#4f733f !important}
+  .study-nav .navbtn{color:var(--hm-ink) !important}
+
+  /* Setup / mode game */
+  .start-screen h2{color:var(--hm-wood-dark) !important}
+  .start-screen p{color:var(--hm-muted) !important}
+  .setup-box{
+    background:linear-gradient(180deg,#fffaf0,#eadbbd) !important;
+    border:2px solid #a17c52 !important;
+    color:var(--hm-ink) !important;
+    box-shadow:inset 0 1px #fff,0 3px 0 rgba(82,56,33,.15) !important;
+  }
+  .setup-box .lbl{color:var(--hm-green-dark) !important}
+  .setup-box .lbl .cnt{color:var(--hm-muted) !important}
+  .opt-row button{
+    background:linear-gradient(180deg,#fffdf3,#e8d9b9) !important;
+    color:var(--hm-ink) !important;
+    border:2px solid #a78056 !important;
+    box-shadow:0 2px 0 rgba(91,63,38,.14) !important;
+  }
+  .opt-row button.active{
+    background:linear-gradient(180deg,#91ba72,#659251) !important;
+    color:#fffdf2 !important;
+    border-color:#4e743d !important;
+    box-shadow:0 3px 0 #4d6d3e !important;
+  }
+  .level-node{
+    background:#eee3c8 !important;
+    color:#6c5943 !important;
+    border-color:#a1825c !important;
+    box-shadow:0 3px 0 rgba(93,65,39,.15) !important;
+  }
+  .level-node.unlocked{
+    background:linear-gradient(180deg,#91ba72,#659251) !important;
+    color:#fffdf2 !important;
+    border-color:#4e743d !important;
+    box-shadow:0 3px 0 #4c6d3c !important;
+  }
+  .level-node.cleared{
+    background:linear-gradient(180deg,#b5c982,#7f9e55) !important;
+    color:#fffdf2 !important;
+  }
+
+  /* =========================================================
+     ACTIVE QUIZ — soal dan pilihan jawaban
+     ========================================================= */
+  .quiz-card,.question-card,.question-box,.qcard{
+    background:linear-gradient(180deg,#fffdf5,#f0e3c4) !important;
+    color:var(--hm-ink) !important;
+    border-color:#95704b !important;
+    box-shadow:0 4px 0 #65472e,0 8px 18px rgba(55,42,29,.13),inset 0 1px #fff !important;
+  }
+  .qcard .qtype{color:#966426 !important;text-shadow:none !important}
+  .qcard .qnum{color:#7b6851 !important}
+  .qcard .qtext,
+  .qcard .qtext b{color:#3d2c20 !important;text-shadow:none !important}
+  .options .opt{
+    background:#fffaf0 !important;
+    color:#493527 !important;
+    border:2px solid #b29369 !important;
+    box-shadow:0 2px 0 rgba(82,57,34,.12) !important;
+  }
+  .options .opt::before{
+    background:#efe1bf !important;
+    color:#6e573d !important;
+    border-color:#b28f60 !important;
+  }
+  .options .opt:hover{background:#f8efdb !important}
+  .options .opt.correct{
+    background:#e2efd5 !important;
+    color:#416638 !important;
+    border-color:#6f9957 !important;
+  }
+  .options .opt.correct::before{background:#cfe4bc !important;color:#416638 !important;border-color:#6f9957 !important}
+  .options .opt.wrong{
+    background:#f4deda !important;
+    color:#88443e !important;
+    border-color:#bd7167 !important;
+  }
+  .options .opt.wrong::before{background:#ecd0cb !important;color:#88443e !important;border-color:#bd7167 !important}
+
+  .assembly-area{
+    background:#f4ead5 !important;
+    border-color:#b28e60 !important;
+  }
+  .assembly-placeholder{color:#8a755d !important}
+  .chunk-btn{
+    background:#fffaf0 !important;
+    color:#493527 !important;
+    border-color:#ae8b5e !important;
+    box-shadow:0 2px 0 rgba(82,57,34,.10) !important;
+  }
+  .chunk-btn.placed{
+    background:#e0edd4 !important;
+    color:#42673a !important;
+    border-color:#70975a !important;
+  }
+  .susun-result.correct{color:#4d7d42 !important}
+  .susun-result.wrong{color:#a34e47 !important}
+
+  .timerbar-fill{background:linear-gradient(90deg,#7aa45e,#b4a24b) !important}
+  .timerbar-fill.danger{background:linear-gradient(90deg,#bd6258,#a64d47) !important}
+
+  /* Listening */
+  .listen-box{
+    background:linear-gradient(180deg,#f3ead7,#e7d6b2) !important;
+    border:2px solid #aa885e !important;
+    color:var(--hm-ink) !important;
+  }
+  .listen-speaker-btn{
+    background:#e2efd5 !important;
+    color:#4f7b43 !important;
+    border-color:#70985a !important;
+    box-shadow:0 4px 0 #56763f !important;
+  }
+  .listen-hint{color:#76624b !important}
+  .listen-reveal{color:#3d2c20 !important;text-shadow:none !important}
+  .listen-reveal .lr-romaji{color:#76624b !important}
+  .voice-picker-link{color:#4f7b43 !important}
+  .voice-item{
+    background:#fffaf0 !important;
+    border-color:#b29267 !important;
+    color:var(--hm-ink) !important;
+  }
+  .voice-item .vi-lang{color:#7c6953 !important}
+  .voice-item .vi-test-btn{
+    background:#e7efd9 !important;color:#4f7b43 !important;border-color:#78995e !important
+  }
+  .voice-item .vi-use-btn{
+    background:#e1edd5 !important;color:#4f7b43 !important;border-color:#78995e !important
+  }
+
+  /* Dokkai */
+  .dokkai-passage{
+    background:#fffaf0 !important;
+    color:var(--hm-ink) !important;
+    border-color:#b29267 !important;
+    box-shadow:0 3px 0 rgba(82,57,34,.10) !important;
+  }
+  .dokkai-passage::before{background:#fffaf0 !important}
+  .dokkai-title{color:#865a29 !important}
+  .dokkai-text{color:#443225 !important}
+  .dokkai-text mark{background:#f0d98d !important;color:#443225 !important}
+  .dokkai-progress{color:#4f7b43 !important}
+  .dokkai-progress .dot{background:#cfc1a5 !important}
+  .dokkai-progress .dot.done{background:#6d9856 !important}
+  .dokkai-progress .dot.now{background:#b78b35 !important;box-shadow:none !important}
+  .dokkai-explain{
+    background:#edf3e4 !important;border-color:#9db783 !important;color:#4b3828 !important
+  }
+  .dokkai-explain.wrong{background:#f4dfdb !important;border-color:#c48479 !important}
+  .dokkai-explain .tag{color:#4e7b40 !important}
+  .dokkai-explain.wrong .tag{color:#984b44 !important}
+  .dokkai-explain .body{color:#4b3828 !important}
+  .continue-btn{
+    background:linear-gradient(180deg,#9a6a43,#7b4e31) !important;
+    color:#fff9e9 !important;
+    border:2px solid #613d26 !important;
+    box-shadow:0 4px 0 #52351f !important;
+  }
+
+  /* Trivia */
+  .trivia-cat-budaya,.trivia-cat-bahasa{--tcat1:#8b6b3e;--tcat2:#729458}
+  .qcard.trivia-cat-budaya,.qcard.trivia-cat-bahasa{box-shadow:0 4px 0 #65472e !important}
+  .trivia-cat-badge{
+    background:#eee0c1 !important;border-color:#b49368 !important;color:#5a422e !important
+  }
+  .trivia-streak-chip{
+    background:linear-gradient(180deg,#d49b48,#b66e4f) !important;
+    color:#fff9e8 !important;
+    box-shadow:0 2px 0 #7f5235 !important;
+  }
+  .trivia-cat-pill{
+    background:#eee5d2 !important;color:#5a4633 !important;border-color:#b89a72 !important
+  }
+
+  /* Result / history / leaderboard */
+  .result .big-score{
+    background:linear-gradient(135deg,#5d8a4b,#b47e32) !important;
+    -webkit-background-clip:text !important;background-clip:text !important;
+  }
+  .result .id-line,.result .sub{color:#756149 !important}
+  .export-row button,.hi-download-btn{
+    background:#f1e2c4 !important;
+    color:#547a45 !important;
+    border:2px solid #a27b51 !important;
+    box-shadow:0 2px 0 rgba(82,57,34,.14) !important;
+  }
+  .miss-item,.history-item,.lb-row{
+    background:#fff9eb !important;
+    color:#4b3829 !important;
+    border-color:#ad885c !important;
+    box-shadow:0 2px 0 rgba(82,57,34,.09) !important;
+  }
+  .lb-row.me{background:#e3eed7 !important;border-color:#76995e !important}
+  .miss-item .mi-pattern,.history-item .hi-title{color:#493326 !important}
+  .miss-item .mi-meaning,.history-item .hi-sub{color:#77634d !important}
+  .no-miss{background:#e4efd8 !important;color:#4e743e !important;border-color:#87a86b !important}
+
+  /* Game toast / level-up */
+  .game-toast{
+    background:linear-gradient(180deg,#fff1c2,#e4c77d) !important;
+    color:#5b422b !important;border:2px solid #a47b42 !important;
+    box-shadow:0 4px 0 #74532f !important;
+  }
+  .levelup-banner{background:rgba(58,54,38,.45) !important}
+  .levelup-card{
+    background:linear-gradient(180deg,#fff8df,#e7d2a3) !important;
+    color:#4b3627 !important;border:3px solid #9a7047 !important;
+    box-shadow:0 6px 0 #5d4028 !important;
+  }
+  .levelup-card .lu-title{color:#5b422d !important}
+  .levelup-card button{
+    background:#789b5b !important;color:#fffaf0 !important;border-color:#526f3d !important
+  }
+
+  /* Shop / Avatar */
+  .shop-overlay,.album-overlay,.card-reveal-overlay{
+    background:rgba(57,57,40,.58) !important;
+    backdrop-filter:blur(2px) !important;
+  }
+  .shop-card,.album-card{
+    background:
+      linear-gradient(rgba(255,250,232,.96),rgba(235,218,179,.97)) !important;
+    border:4px solid #815d3a !important;
+    color:#4b3627 !important;
+    box-shadow:0 7px 0 #5f422c,0 20px 35px rgba(36,52,30,.25) !important;
+  }
+  .shop-item,.avatar-cell{
+    background:linear-gradient(180deg,#fff9e9,#e5d6b4) !important;
+    border-color:#a27a50 !important;
+    color:#4b3627 !important;
+  }
+  .shop-item button{
+    background:#e3efd4 !important;color:#527642 !important;border-color:#76985d !important
+  }
+  .shop-item button.owned{background:#d8e8c7 !important;color:#4d713d !important}
+  .shop-close{
+    background:#efe1c2 !important;color:#654d38 !important;border-color:#9b754d !important
+  }
+  .shop-tab{
+    background:#f5e9ce !important;color:#705b41 !important;border-color:#a98458 !important
+  }
+  .shop-tab.active{background:#82a961 !important;color:#fffaf0 !important;border-color:#567844 !important}
+  .avatar-feature{
+    background:linear-gradient(180deg,#fff9e7,#e7d8b5) !important;
+    border-color:#8c6743 !important;color:#4b3627 !important;
+  }
+  .avatar-name-preview{color:#756149 !important}
+  .avatar-cell .ac-price{background:#e0c27b !important;color:#5d4528 !important}
+  .avatar-cell .ac-check{background:#6f9956 !important;color:#fff !important}
+
+  /* =========================================================
+     KOTODAMA ALBUM — meja kayu + kartu koleksi, bukan cyberpunk
+     ========================================================= */
+  .album-overlay{
+    background:
+      linear-gradient(rgba(73,55,35,.38),rgba(48,45,32,.58)),
+      var(--farm-village-bg) center/cover !important;
+  }
+  .album-card{
+    width:min(900px,96vw) !important;
+    max-width:900px !important;
+    max-height:90vh !important;
+    padding:20px !important;
+    border:5px solid #785431 !important;
+    border-radius:20px !important;
+    background:
+      linear-gradient(180deg,rgba(255,248,225,.985),rgba(229,207,163,.985)) !important;
+    box-shadow:0 8px 0 #543923,0 24px 45px rgba(43,34,22,.32),inset 0 1px #fff !important;
+    color:#493426 !important;
+  }
+  .album-card h3{
+    font-family:"Fraunces","M PLUS Rounded 1c",sans-serif !important;
+    font-size:23px !important;
+    color:#5c4027 !important;
+    text-align:center !important;
+  }
+  .album-progress{color:#776047 !important;text-align:center}
+  .album-track{
+    height:9px !important;background:#ddcfad !important;border:1px solid #b69a69 !important
+  }
+  .album-track-fill{
+    background:linear-gradient(90deg,#729b57,#c69a45) !important
+  }
+  .album-tabs{
+    justify-content:center !important;
+    padding:5px !important;
+    background:#ead9b5 !important;
+    border:2px solid #b28e5d !important;
+    border-radius:12px !important;
+  }
+  .album-tab{
+    background:#fff6df !important;
+    color:#705a42 !important;
+    border:2px solid #b39469 !important;
+  }
+  .album-tab.active{
+    background:linear-gradient(180deg,#8eb36c,#628d4e) !important;
+    color:#fffdf1 !important;
+    border-color:#4f753f !important;
+    box-shadow:0 2px 0 #466537 !important;
+  }
+  .album-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:14px !important;
+    padding:8px 2px 12px !important;
+  }
+  .mini-card{
+    min-height:265px !important;
+    aspect-ratio:3/4 !important;
+    border:4px solid var(--r1,#8b6845) !important;
+    border-radius:13px !important;
+    background:linear-gradient(180deg,#fffaf0,#ead6aa) !important;
+    box-shadow:0 4px 0 color-mix(in srgb,var(--r1,#8b6845) 70%,#50351f),0 8px 16px rgba(57,40,23,.20) !important;
+  }
+  .mini-card::before{
+    height:30px !important;
+    background:linear-gradient(180deg,var(--r2,#eadfbe),var(--r1,#8b6845)) !important;
+    opacity:.95 !important;
+  }
+  .mini-card .mc-level{
+    color:#fff9e9 !important;
+    background:color-mix(in srgb,var(--r1,#8b6845) 82%,#50351f) !important;
+    text-shadow:0 1px rgba(0,0,0,.25) !important;
+  }
+  .mini-card .mc-rarity{
+    color:#4b3524 !important;
+    text-shadow:none !important;
+  }
+  .mini-card .mc-jp{
+    color:#3b2b20 !important;
+    font-family:"Zen Maru Gothic","M PLUS Rounded 1c",sans-serif !important;
+    text-shadow:none !important;
+  }
+  .mini-card .mc-romaji{color:#856b4b !important}
+  .mini-card .mc-meaning{color:#5b4733 !important}
+  .mini-card .mc-usage{
+    background:rgba(255,249,231,.72) !important;
+    border-color:#c3a779 !important;
+    color:#5d4934 !important;
+  }
+  .mini-card .mc-usage b{color:#76502b !important}
+  .mini-card .mc-usage span{color:#5d4934 !important}
+  .mini-card .mc-count{color:#806747 !important}
+  .empty-slot{
+    border-color:#bca47c !important;color:#a38b69 !important;background:rgba(255,249,231,.32)
+  }
+  .card-reveal-overlay{
+    background:rgba(63,54,37,.70) !important;
+  }
+  .card-reveal-caption{color:#fff9e9 !important;text-shadow:0 2px 3px rgba(30,24,16,.7) !important}
+  .card-reveal-close{
+    background:linear-gradient(180deg,#9b6a43,#774b30) !important;
+    color:#fff9e9 !important;border:2px solid #5d3b25 !important;
+    box-shadow:0 3px 0 #4d311f !important;
+  }
+  .card-dupe-toast{
+    background:#fff4d6 !important;color:#5b422b !important;border:2px solid #a47b48 !important;
+    box-shadow:0 4px 0 rgba(75,50,28,.25) !important;
+  }
+
+  /* Rarity: tetap beda, tetapi tidak kembali ke neon */
+  .rarity-N5{--r1:#6c9852;--r2:#dcebc7}
+  .rarity-N4{--r1:#b47735;--r2:#edd0a7}
+  .rarity-N3{--r1:#7d8794;--r2:#e3e7ea}
+  .rarity-N2{--r1:#c19332;--r2:#f5e1a6}
+  .rarity-N1{--r1:#9b5964;--r2:#efd0d5}
+  .rarity-legend{--r1:#c69b39;--r2:#f6e5ad}
+  .mini-card.rarity-N3,.mini-card.rarity-N2,.mini-card.rarity-N1,.mini-card.rarity-legend{
+    animation:none !important;
+  }
+  .mini-card.rarity-N4::after,.mini-card.rarity-N3::after,.mini-card.rarity-N2::after,
+  .mini-card.rarity-N1::after,.mini-card.rarity-legend::after{
+    opacity:.08 !important;
+    filter:none !important;
+  }
+
+  /* Opsi kartu Kotodama saat reveal */
+  .kotodama-card{
+    background:linear-gradient(#fff8e8,#ead5aa) !important;
+    border-color:var(--r1,#8a5a2d) !important;
+    box-shadow:0 4px 0 #68462e,0 12px 26px rgba(40,26,10,.35) !important;
+  }
+  .kotodama-card .kc-jp{color:#3a291d !important}
+  .kotodama-card .kc-meaning{color:#5d4933 !important}
+  .kotodama-card .kc-rarity{color:#4a3523 !important}
+  .kotodama-card .kc-level{color:#fff9e8 !important}
+  .kotodama-card .kc-new{background:#b56f55 !important;color:#fff9e8 !important}
+  .kotodama-card .kc-band{border-bottom-color:#785332 !important}
+
+  /* Omikuji sudah bernuansa kayu/kertas; kunci teks yang mungkin diwarisi putih. */
+  .omikuji-card,.omikuji-slip{color:#4b3828 !important}
+  .omikuji-card .om-title,.omikuji-slip .os-title{color:#5d3f24 !important}
+  .omikuji-card .om-sub,.omikuji-slip .os-sub,.omikuji-slip .os-msg,.omikuji-slip .os-pesan-jp{color:#685540 !important}
+  .omikuji-slip .os-flabel{color:#705334 !important}
+  .omikuji-close{background:#8e6336 !important;color:#fffaf0 !important}
+
+  /* Generic fallback: elemen teks umum yang masih #fff di area aplikasi. */
+  .wrap .flash,
+  .wrap .flash .ir-item,
+  .wrap .flash .ir-pola-item,
+  .wrap .qcard,
+  .wrap .setup-box,
+  .wrap .card{
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Responsif album */
+  @media (max-width:820px){
+    .album-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+    .album-card{width:min(720px,96vw) !important}
+  }
+  @media (max-width:560px){
+    .album-card{padding:12px !important;border-width:3px !important}
+    .album-card h3{font-size:19px !important}
+    .album-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:9px !important}
+    .mini-card{min-height:215px !important;border-width:3px !important}
+    .mini-card .mc-jp{font-size:17px !important}
+    .mini-card .mc-meaning{font-size:9.5px !important}
+    .mini-card .mc-usage{font-size:8px !important;padding:5px !important}
+    .mini-card .mc-usage span{font-size:8px !important}
+  }
+  @media (max-width:390px){
+    .album-grid{grid-template-columns:1fr !important}
+    .mini-card{max-width:260px !important;width:100%;margin-inline:auto}
+  }
+
 </style>
 </head>
 <body>
@@ -2148,14 +2853,14 @@
       <div class="jp-line">今日も楽しく日本語を勉強しましょう！</div>
     </div>
 
-    <button class="harvest-start" id="landingStartBtn" type="button">🌾　村へ入る · MULAI BERMAIN　🌾</button>
+    <button class="harvest-start" id="landingStartBtn" type="button">🌾　村へ入る 　🌾</button>
   </div>
 </div>
 
 <div class="wrap">
   <header>
     <div class="brand">
-      <h1><img src="" id="brandLogoImg" alt="Nafis Sensei" style="height:28px;width:28px;vertical-align:-6px;border-radius:6px;margin-right:4px;"> Nafis Sensei ゲームコーナー</h1>
+      <h1><img src="" id="brandLogoImg" alt="Nafis Sensei" style="height:28px;width:28px;vertical-align:-6px;border-radius:6px;margin-right:4px;"> Nafis Sensei　学びの里</h1>
       <span>日本語を学びながら、村を育てよう！</span>
       <span class="stats" id="dataStats"></span>
     </div>
@@ -2570,7 +3275,7 @@ function restoreBGMVolume(){ duckBGM(1); }
    toast) supaya kuis terasa seperti game sungguhan, bukan cuma
    soal-jawab polos.
    ============================================================ */
-const CONFETTI_COLORS = ["#00E5FF","#FF2A7A","#9D00FF","#FFC107","#00F0B5"];
+const CONFETTI_COLORS = ["#7ea45f","#d8a15c","#d47f86","#f0c66a","#6e9a58"];
 
 function spawnConfetti(cx, cy, count){
   count = count || 22;
@@ -5510,11 +6215,11 @@ function renderResult(){
    property seperti "var(--mint)" — kalau dipaksa, warnanya gagal tergambar. */
 function gradeColorHex(letter){
   switch(letter){
-    case "A": return "#00F0B5";
-    case "B": return "#00E5FF";
-    case "C": return "#FFD700";
-    case "D": return "#FFD700";
-    default:  return "#FF3366";
+    case "A": return "#5f934c";
+    case "B": return "#6f9d5b";
+    case "C": return "#c08a32";
+    case "D": return "#c08a32";
+    default:  return "#b9574b";
   }
 }
 
@@ -5562,7 +6267,7 @@ function renderResultCardToImage(opts){
   ctx.fillText("🎮", pad, pad+34);
   ctx.fillStyle = "#5c7f49";
   ctx.font = "bold 30px sans-serif";
-  ctx.fillText("NAFIS SENSEI ゲームコーナー", pad+46, pad+30);
+  ctx.fillText("NAFIS SENSEI 学びの里", pad+46, pad+30);
 
   // sub-judul: jenis materi + paket soal (jika ada)
   const subLabel = "HASIL PENILAIAN — " + opts.materiLabel.toUpperCase() + (opts.paketLabel && opts.paketLabel !== '-' ? "  ·  " + opts.paketLabel.toUpperCase() : "");
@@ -5645,7 +6350,7 @@ function renderResultCardToImage(opts){
   ctx.textAlign = "center";
   ctx.font = "italic 15px sans-serif";
   ctx.fillStyle = "#7b6a52";
-  ctx.fillText("Dibuat otomatis oleh Nafis Sensei ゲームコーナー — mohon kirim gambar ini ke gurumu.", W/2, H-pad+2);
+  ctx.fillText("Dibuat otomatis oleh Nafis Sensei 学びの里 — mohon kirim gambar ini ke gurumu.", W/2, H-pad+2);
 
   const link = document.createElement("a");
   const safeName = (opts.studentName||"hasil").replace(/[^a-zA-Z0-9]+/g,"_");
